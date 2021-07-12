@@ -15,7 +15,7 @@ public class Interactable : MonoBehaviour
     /// <value></value>
     public InteractableType InteractableType { get => interactableType; }
 
-void Start()
+    void Start()
     {
         InteractableDatabase.RegisterInteractable(this);
     }

@@ -8,12 +8,13 @@ using UnityEngine;
 /// </summary>
 public class PlayerInteraction : MonoBehaviour
 {
-    new Camera camera;
+    [SerializeField] new Camera camera;
     const float playerReach = 2f;
 
     PlayerInteractionState playerInteractionState;
 
     Interactable currentInteractable;
+    Interactable previousInteractable;
 
     void Update()
     {
@@ -33,7 +34,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void FreeStateUpdate()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
             if (Physics.Raycast(camera.transform.position, camera.transform.forward, out var hitInfo, playerReach))
             {
@@ -42,11 +43,12 @@ public class PlayerInteraction : MonoBehaviour
                     switch (interactable.InteractableType)
                     {
                         case InteractableType.OneClick:
-                            if (currentInteractable != interactable)
+                            if (currentInteractable != interactable && currentInteractable != null)
                                 currentInteractable.InteractEnd();
+                            else if (currentInteractable != previousInteractable && currentInteractable != interactable)
+                                interactable.InteractBegin();
 
-                            interactable.InteractBegin();
-
+                            previousInteractable = currentInteractable;
                             currentInteractable = interactable;
                             break;
 
@@ -65,9 +67,10 @@ public class PlayerInteraction : MonoBehaviour
                 }
             }
         }
-        else
+        else if (currentInteractable != null)
         {
             currentInteractable.InteractEnd();
+            previousInteractable = currentInteractable;
             currentInteractable = null;
         }
     }
