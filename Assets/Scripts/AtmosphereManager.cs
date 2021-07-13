@@ -1,22 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtmosphereManager : MonoBehaviour
+public static class AtmosphereManager
 {
 
     const float RefTemperature = 293f;
     const float RefHeight = 0f;
     const float RefPressure = 101325f;
 
-    static float AmbientTemperature(float height)
+    public static float GetAmbientTemperature(float height)
     {
-        return RefTemperature - 0.0065(height - RefHeight)
+		return RefTemperature - 0.0065f * (height - RefHeight);
     }
 
-    static float AmbientPressure(float height, float AmbientTemperature)
+    public static float GetAmbientPressure(float height, float AmbientTemperature)
     {
-        return  Math.Pow(RefPressure(1-(0.0065*height)/(AmbientTemperature + 0.0065*height)), 5.257)
+		return Mathf.Pow(RefPressure * (1f - (0.0065f * height) / (AmbientTemperature + 0.0065f * height)), 5.257f);
     }
+
+	public static float GetAmbientDensity()
+	{
+		throw new NotImplementedException();
+	}
 
 }
