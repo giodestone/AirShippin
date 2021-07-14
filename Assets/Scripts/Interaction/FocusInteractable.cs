@@ -7,14 +7,18 @@ public class FocusInteractable : Interactable
     Camera mainCamera;
     [SerializeField] Camera focusCamera; // Camera which will be enabled after focusing.
 
+    /// <summary>
+    /// Get the camera which is used when it is focused.
+    /// </summary>
+    /// <value></value>
+    protected Camera FocusCamera { get => focusCamera; }
+
     Vector3 playerPosFromObjectOnInteract;
 
     PlayerInteraction playerInteraction;
 
-    new void Start()
+    void Awake()
     {
-        base.Start();
-
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         playerInteraction = GameObject.FindObjectOfType<PlayerInteraction>();
