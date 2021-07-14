@@ -13,4 +13,14 @@ public class AirshipCockpit : MonoBehaviour
     {
         // TODO
     }
+
+    public void UpdateSteering(float newValue)
+    {
+        // TODO
+    }
+
+    public void UpdateThrottle(float newValue)
+    {
+        // TODO
+    }
 }
