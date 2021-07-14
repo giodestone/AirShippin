@@ -41,7 +41,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    void FreeStateUpdate()
+    void FreeStateUpdate(bool onlyConsiderOneClick=false)
     {
         if (Input.GetButton("Fire1"))
         {
@@ -62,13 +62,17 @@ public class PlayerInteraction : MonoBehaviour
                             break;
 
                         case InteractableType.Item:
+                            if (onlyConsiderOneClick)
+                                break;
                             PickUpItem(interactable);
                             SwitchStateTo(PlayerInteractionState.HoldingItem);
                             break;
                         
                         case InteractableType.Focus:
-                            throw new NotImplementedException();
-                            // TODO: switch to the focused item.
+                            if (onlyConsiderOneClick)
+                                break;
+                            interactable.InteractBegin();
+                            currentInteractable = interactable;
                             SwitchStateTo(PlayerInteractionState.Focused);
                             break;
                     }
@@ -99,7 +103,12 @@ public class PlayerInteraction : MonoBehaviour
 
     void FocusedUpdate()
     {
-        // TODO detect if cancel is pressed so then the focus can be ended.
+        if (Input.GetButtonDown("Cancel"))
+        {
+            currentInteractable.InteractEnd();
+            SwitchStateTo(PlayerInteractionState.Free);
+            currentInteractable = null;
+        }
     }
 
     void SwitchStateTo(PlayerInteractionState newPis)

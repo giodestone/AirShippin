@@ -40,7 +40,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    void Start()
+    protected void Start()
     {
         interactableType = InteractableType;
         InteractableDatabase.RegisterInteractable(this);
@@ -50,6 +50,7 @@ public class Interactable : MonoBehaviour
     {
         InteractableDatabase.UnregiserInteractable(this);
     }
+
 
     /// <summary>
     /// Instruct that an interaction has begin (player has clicked on it).
