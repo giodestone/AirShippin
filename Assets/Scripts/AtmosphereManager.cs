@@ -11,9 +11,22 @@ public static class AtmosphereManager
     const float RefPressure = 101325f;
 	const float SpecficGasConstant = 287f;
 
+	private static float TemperatureIncrease;
+
+	public void Start()
+	{
+		TemperatureIncrease = 0.0f;
+	}
+
+	public static void ClimateChange(float FuelConsumption)
+	{
+		/*ToDo*/
+		TemperatureIncrease = FuelConsumption * 0.5f;
+	}
+
 	public static float GetAmbientTemperature(float height)
     {
-		return RefTemperature - 0.0065f * (height - RefHeight);
+		return RefTemperature - 0.0065f * (height - RefHeight) + TemperatureIncrease;
     }
 
     public static float GetAmbientPressure(float height, float AmbientTemperature)
