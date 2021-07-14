@@ -9,8 +9,9 @@ public static class AtmosphereManager
     const float RefTemperature = 293f;
     const float RefHeight = 0f;
     const float RefPressure = 101325f;
+	const float SpecficGasConstant = 287f;
 
-    public static float GetAmbientTemperature(float height)
+	public static float GetAmbientTemperature(float height)
     {
 		return RefTemperature - 0.0065f * (height - RefHeight);
     }
@@ -20,9 +21,11 @@ public static class AtmosphereManager
 		return Mathf.Pow(RefPressure * (1f - (0.0065f * height) / (AmbientTemperature + 0.0065f * height)), 5.257f);
     }
 
-	public static float GetAmbientDensity()
+	public static float GetAmbientDensity(float height)
 	{
-		throw new NotImplementedException();
+		float AmbientTemperature = GetAmbientTemperature(height);
+		float AmbientPressure = GetAmbientPressure(height, AmbientTemperature);
+		return AmbientPressure / (SpecficGasConstant * AmbientTemperature);
 	}
 
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-	const float SpecficGasConstant = 287f;
 
 	private Rigidbody rb;
 	private float BalloonTemperature;
@@ -23,16 +22,16 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-		rb.AddForce(GetForce());
+		rb.AddForce(GetYForce());
     }
 
-	Vector3 GetForce()
+	Vector3 GetYForce()
 	{
 		return new Vector3(0f, (AtmosphereManager.GetAmbientDensity() - GetBalloonDensity()) * 2800f * 9.80665f, 0f);
 	}
 
 	float GetBalloonDensity()
 	{
-		return BalloonPressure / (SpecficGasConstant * BalloonTemperature);
+		return BalloonPressure / (AtmosphereManager.SpecficGasConstant * BalloonTemperature);
 	}
 }
