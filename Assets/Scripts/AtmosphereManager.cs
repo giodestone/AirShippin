@@ -11,7 +11,7 @@ public static class AtmosphereManager
     const float RefPressure = 101325f;
 	const float SpecficGasConstant = 287f;
 	const float HeatCapacityAir = 716f;
-
+	const float ThermalConductivity = 0.024f;
 
 	private static float pollution;
 
