@@ -30,11 +30,6 @@ public class HotAirBalloon
 		return new Vector3(0f, (AtmosphereManager.GetAmbientDensity() - GetBalloonDensity()) * 2800f * 9.80665f, 0f);
 	}
 
-	Vector3 GetWindForce()
-	{
-		Vector3 Force = new Vector3(0f,0f,0f) /*WindManager.Wind(height)*/;
-	}
-
 	float GetBalloonDensity()
 	{
 		return BalloonPressure / (AtmosphereManager.SpecficGasConstant * BalloonTemperature);

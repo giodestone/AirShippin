@@ -18,14 +18,21 @@ public class AirShip : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+		rb.AddForce(GetWindForce());
 		if (IsMoving)
 		{
-			Vector3 Drag = GetDrag();
+			Vector3 Drag = this.GetDrag();
 			rb.AddForce(Drag);
 		}
     }
 
-	public Vector3 GetDrag()
+	Vector3 GetWindForce()
+	{
+		Vector3 Force = new Vector3(0f, 0f, 0f) /*WindManager.Wind(height)*/;
+		return Force;
+	}
+
+	Vector3 GetDrag()
 	{
 		Vector3 Velocity = rb.velocity;
 		float VelX = Velocity.x;
