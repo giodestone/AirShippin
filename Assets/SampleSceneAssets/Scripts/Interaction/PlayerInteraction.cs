@@ -9,12 +9,21 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] new Camera camera;
+    [SerializeField] Transform itemAttachmentPoint; // Where picked up items will go.
+    [SerializeField] float throwItemForce = 10;
+    [SerializeField] float dontThrowOverAngle = 160; // When will the player be considered to be looking at the ground. Dont throw the item if practically looking at ground.
+
     const float playerReach = 2f;
 
     PlayerInteractionState playerInteractionState;
 
     Interactable currentInteractable;
     Interactable previousInteractable;
+
+    Transform originalItemParent;
+    Vector3 originalItemPosition;
+    Quaternion originalItemRotation;
+    Vector3 originalItemScale;
 
     void Update()
     {
@@ -53,8 +62,7 @@ public class PlayerInteraction : MonoBehaviour
                             break;
 
                         case InteractableType.Item:
-                            throw new NotImplementedException();
-                            // TODO: Pick item up and switch state.
+                            PickUpItem(interactable);
                             SwitchStateTo(PlayerInteractionState.HoldingItem);
                             break;
                         
@@ -77,8 +85,16 @@ public class PlayerInteraction : MonoBehaviour
 
     void HoldingItemUpdate()
     {
-        // TODO put item down if Fire1 clicked.
+        currentInteractable.transform.position = itemAttachmentPoint.transform.position;
 
+        if (Input.GetButtonDown("Fire1"))
+        {
+            PutDownItem();
+        }
+        else if (Input.GetButtonDown("Fire2"))
+        {
+            ThrowOrPutDownItem();
+        }
     }
 
     void FocusedUpdate()
@@ -125,5 +141,68 @@ public class PlayerInteraction : MonoBehaviour
                 break;
         }
         playerInteractionState = newPis;
+    }
+
+    void PickUpItem(Interactable interactable)
+    {
+        currentInteractable = interactable;
+        originalItemParent = currentInteractable.transform.parent;
+        originalItemPosition = currentInteractable.transform.position;
+        originalItemRotation = currentInteractable.transform.rotation;
+        originalItemScale = currentInteractable.transform.localScale;
+        currentInteractable.transform.localPosition = Vector3.zero;
+
+        currentInteractable.gameObject.transform.parent = itemAttachmentPoint;
+        currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = false;
+        currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    void PutDownItem()
+    {
+        currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = true;
+
+        if (Physics.Raycast(itemAttachmentPoint.position, -itemAttachmentPoint.transform.up, out var hitInfo, 5f, LayerMask.GetMask("ItemPutDownSurface")))
+        {
+            // Check if raycast hit an ItemHolder
+            var itemHolder = hitInfo.transform.gameObject.GetComponent<ItemHolder>();
+            if (itemHolder != null)
+            {
+                throw new NotImplementedException();
+            }
+            // Otherwise plonk it down infront of player and set it as the parent transform so it doesn't flop about.
+            else
+            {
+                currentInteractable.transform.parent = hitInfo.transform;
+                currentInteractable.transform.position = hitInfo.point;
+                currentInteractable.transform.rotation = Quaternion.Euler(hitInfo.normal);
+                currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            }
+
+        }
+        // Otherwise let physics take the wheel.
+        else
+        {
+            currentInteractable.transform.parent = null;
+            currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        }
+
+        currentInteractable = null;
+        SwitchStateTo(PlayerInteractionState.Free);
+    }
+
+    void ThrowOrPutDownItem()
+    {
+        currentInteractable.transform.parent = null;
+        currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+        currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = true;
+
+        if (Vector3.Angle(Vector3.up, camera.transform.up) < dontThrowOverAngle)
+        {
+            currentInteractable.transform.gameObject.GetComponent<Rigidbody>()?.AddForce(camera.transform.forward * throwItemForce, ForceMode.Impulse);
+        }
+
+        currentInteractable = null;
+        SwitchStateTo(PlayerInteractionState.Free);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DebugInteractable : Interactable
 {
+    public override InteractableType InteractableType { get => InteractableType.OneClick; }
     public override void InteractBegin()
     {
         base.InteractBegin();

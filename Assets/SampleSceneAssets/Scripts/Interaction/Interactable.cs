@@ -7,16 +7,42 @@ using UnityEngine;
 /// </summary>
 public class Interactable : MonoBehaviour
 {
+    [Header("Chaning this wont do anything (only for debug view).")]
     [SerializeField] InteractableType interactableType;
 
     /// <summary>
     /// Get what type of interactable this is.
     /// </summary>
     /// <value></value>
-    public InteractableType InteractableType { get => interactableType; }
+    public virtual InteractableType InteractableType { get => InteractableType.Undefined; }
+
+    private ItemHolder owningItemHolder;
+
+    /// <summary>
+    /// Which <see cref="ItemHolder"/> 'owns' this item currently. InteractableType must be InteractableType.Item.
+    /// </summary>
+    /// <value>null if none, a value if so.</value>
+    public ItemHolder OwningItemHolder 
+    { 
+        get
+        {
+            if (InteractableType != InteractableType.Item)
+                throw new System.Exception("This object cannot have an owning ItemHolder due to its InteractableType.");
+            
+            return owningItemHolder;
+        }
+        set
+        {
+            if (InteractableType != InteractableType.Item)
+                throw new System.Exception("This object cannot have an owning ItemHolder due to its InteractableType.");
+
+            owningItemHolder = value;
+        }
+    }
 
     void Start()
     {
+        interactableType = InteractableType;
         InteractableDatabase.RegisterInteractable(this);
     }
 
