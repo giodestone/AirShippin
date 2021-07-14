@@ -60,17 +60,9 @@ public class Interactable : MonoBehaviour
     }
 
     /// <summary>
-    /// Instruct that an interaction has stopped (player has stopped clicking on it)
+    /// Instruct that an interaction has stopped (player has stopped clicking on it).
     /// </summary>
     public virtual void InteractEnd()
-    {
-
-    }
-
-    /// <summary>
-    /// Instruct that the interaction should be ended, if focused.
-    /// </summary>
-    public virtual void Release()
     {
 
     }

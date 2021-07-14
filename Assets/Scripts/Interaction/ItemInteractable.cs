@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugItemInteractable : Interactable
+public class ItemInteractable : Interactable
 {
     public override InteractableType InteractableType { get => InteractableType.Item; }
 
