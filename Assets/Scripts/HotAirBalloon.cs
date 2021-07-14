@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class HotAirBalloon
 {
 
 	private Rigidbody rb;
@@ -15,7 +15,7 @@ public class NewBehaviourScript : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 
 		BalloonTemperature = AtmosphereManager.GetAmbientTemperature(transform.position.y);
-		BalloonPressure = AtmosphereManager.GetAmbientPressure(transform.position.y, 273.15f/*ToDo*/);
+		BalloonPressure = AtmosphereManager.GetAmbientPressure(transform.position.y, BalloonTemperature);
 
     }
 
@@ -28,6 +28,11 @@ public class NewBehaviourScript : MonoBehaviour
 	Vector3 GetYForce()
 	{
 		return new Vector3(0f, (AtmosphereManager.GetAmbientDensity() - GetBalloonDensity()) * 2800f * 9.80665f, 0f);
+	}
+
+	Vector3 GetWindForce()
+	{
+		Vector3 Force = new Vector3(0f,0f,0f) /*WindManager.Wind(height)*/;
 	}
 
 	float GetBalloonDensity()
