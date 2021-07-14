@@ -13,12 +13,7 @@ public static class AtmosphereManager
 	const float HeatCapacityAir = 716f;
 	const float ThermalConductivity = 0.024f;
 
-	private static float pollution;
-
-	public void Start()
-	{
-		pollution = 0.0f;
-	}
+	private static float pollution = 0.0f;
 
 	public static void ClimateChange(float FuelConsumption)
 	{

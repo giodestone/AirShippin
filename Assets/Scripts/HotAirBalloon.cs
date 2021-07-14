@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HotAirBalloon
+public class HotAirBalloon : MonoBehaviour
 {
 
 	private Rigidbody rb;
