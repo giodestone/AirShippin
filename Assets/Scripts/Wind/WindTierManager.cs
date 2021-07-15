@@ -67,10 +67,15 @@ public class WindTierManager : MonoBehaviour
     {
         UpdateWindTiers();
 
-        var temp = GetWind(Vector3.zero);
+        //var temp = GetWind(Vector3.zero);
         var temp2 = GetWind(new Vector3(0f, 180f, 0f));
-        var temp3 = GetWind(new Vector3(0f, 200f, 0f));
-        var temp4 = GetWind(new Vector3(0f, 300f, 0f));
+        var temp21 = GetWind(new Vector3(0f, 190f, 0f));
+        var temp22 = GetWind(new Vector3(0f, 200f, 0f));
+        var temp23 = GetWind(new Vector3(0f, 210f, 0f));
+        var temp24 = GetWind(new Vector3(0f, 220f, 0f));
+
+        var temp4 = GetWind(new Vector3(0f, -100f, 0f));
+        var temp41 = GetWind(new Vector3(0f, -10f, 0f));
         var temp5 = GetWind(new Vector3(0f, windTeirAltitudeIncrement * (numWindTiers + 2), 0f));
 
         var temp6 = "end";
@@ -79,20 +84,45 @@ public class WindTierManager : MonoBehaviour
     Vector3 GetWind(Vector3 position)
     {
         var windBucketIndex = (float)System.Math.Round(position.y / windTeirAltitudeIncrement, 0) * windTeirAltitudeIncrement;
-        windBucketIndex = Mathf.Clamp(windBucketIndex, 0f, windTeirAltitudeIncrement * (numWindTiers - 1));
+        var windBucketIndexClamped = Mathf.Clamp(windBucketIndex, 0f, windTeirAltitudeIncrement * (numWindTiers - 1));
 
         var nextWindBucket = windBucketIndex + windTeirAltitudeIncrement;
         var prevWindBucket = windBucketIndex - windTeirAltitudeIncrement;
 
-        
-        if (nextWindBucket - position.y <= windTierAltitudeOverlap && position.y < windTeirAltitudeIncrement * numWindTiers)
+        if (position.y > 0f && position.y <= numWindTiers * windTeirAltitudeIncrement)
         {
-            
+            var distToUpper = 
+
+            // Check Below
+            if (position.y - windBucketIndex >= -0.001f && position.y - windBucketIndex <= windTierAltitudeOverlap + 0.001f)
+            {
+                // Interpolate with below.
+                var progressBetweenAlt = ((position.y - windBucketIndex)) / (windTierAltitudeOverlap * 2f);
+
+                var directionInterpolated = Vector3.Lerp(windBuckets[prevWindBucket].GetWindDirection, windBuckets[windBucketIndex].GetWindDirection, progressBetweenAlt);
+                var strengthInterplated = Mathf.Lerp(windBuckets[prevWindBucket].GetWindStrength, windBuckets[windBucketIndex].GetWindStrength, progressBetweenAlt);
+                
+                return directionInterpolated * strengthInterplated;
+            }
+            else if (position.y - windBucketIndex <= 0.001f && position.y - windBucketIndex >= -windTierAltitudeOverlap - 0.001f)
+            {
+                // Interpolate with above.
+                var progressBetweenAlt = (Mathf.Abs(position.y - windBucketIndex)) / (windTierAltitudeOverlap * 2f) ;
+
+                var directionInterpolated = Vector3.Lerp(windBuckets[nextWindBucket].GetWindDirection, windBuckets[windBucketIndex].GetWindDirection, progressBetweenAlt);
+                var strengthInterplated = Mathf.Lerp(windBuckets[nextWindBucket].GetWindStrength, windBuckets[windBucketIndex].GetWindStrength, progressBetweenAlt);
+
+                return directionInterpolated * strengthInterplated;
+            }
+            else
+            {
+                throw new System.Exception();
+            }
         }
-
-
-        var wt = windBuckets[windBucketIndex];
-
-        return wt.GetWindDirection * wt.GetWindStrength;
+        else
+        {
+            var wt = windBuckets[windBucketIndex];
+            return wt.GetWindDirection * wt.GetWindStrength;
+        }        
     }
 }
