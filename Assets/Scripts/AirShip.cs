@@ -7,13 +7,21 @@ public class AirShip : MonoBehaviour
 
 	public Rigidbody rb;
 
+	private float height;
+
 	private bool IsMoving = false;
 
     // Start is called before the first frame update
     void Start()
     {
 		rb = GetComponent<Rigidbody>();
+		height = 1f;
     }
+
+	void Update()
+	{
+		height = transform.position.y;
+	}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -39,17 +47,17 @@ public class AirShip : MonoBehaviour
 		float VelY = Velocity.y;
 		float VelZ = Velocity.z;
 		/*Assume Sphere for time being (assume beetle aerodynamics)*/
-		Area = Math.PI * 80 * 80;
-		float ForceX = GetAirResistance<float>(VelX, 0.38, Area);
-		float ForceY = GetAirResistance<float>(VelY, 0.38, Area);
-		float ForceZ = GetAirResistance<float>(VelZ, 0.38, Area);
+		float Area = Mathf.PI * 80f * 80f;
+		float ForceX = GetAirResistance(VelX, 0.38f, height, Area);
+		float ForceY = GetAirResistance(VelY, 0.38f, height, Area);
+		float ForceZ = GetAirResistance(VelZ, 0.38f, height, Area);
 		Vector3 Force = new Vector3(ForceX, ForceY, ForceZ);
 		return Force;
 	}
 
-	public static float GetAirResistance<T>(T Velocity, float DragCoefficient, float Area)
+	public static float GetAirResistance(float Velocity, float DragCoefficient, float height, float Area)
 	{
-		float AmbientDensity = AtmosphereManager.GetAmbientDensity();
+		float AmbientDensity = AtmosphereManager.GetAmbientDensity(height);
 		float k = AmbientDensity * DragCoefficient * Area / 2;
 		return (-1) * k * Velocity * Velocity;
 	}

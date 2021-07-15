@@ -9,9 +9,10 @@ public static class AtmosphereManager
     const float RefTemperature = 293f;
     const float RefHeight = 0f;
     const float RefPressure = 101325f;
-	const float SpecficGasConstant = 287f;
-	const float HeatCapacityAir = 716f;
-	const float ThermalConductivity = 0.024f;
+
+	public const float SpecficGasConstant = 287f;
+	public const float HeatCapacityAir = 716f;
+	public const float ThermalConductivity = 0.024f;
 
 	private static float pollution = 0.0f;
 
