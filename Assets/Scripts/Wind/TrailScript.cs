@@ -7,6 +7,9 @@ public class TrailScript : MonoBehaviour
     WindManager windManager;
     WindVisualizer windVisualizer;
 
+    float lifetime;
+    float timeCreated;
+
     public void Initialise(WindManager windManager, WindVisualizer windVisualizer)
     {
         this.windManager = windManager;
@@ -15,7 +18,8 @@ public class TrailScript : MonoBehaviour
 
     void Start()
     {
-        Destroy(this.gameObject, GetComponent<TrailRenderer>().time);
+        lifetime = GetComponent<TrailRenderer>().time;
+        timeCreated = Time.time;
     }
 
     void OnDestroy()
@@ -25,6 +29,9 @@ public class TrailScript : MonoBehaviour
 
     void LateUpdate()
     {
+        if (Time.time >= timeCreated + lifetime)
+            return;
+            
         var wind = windManager.GetWind(transform.position);
 
         transform.position = new Vector3(
