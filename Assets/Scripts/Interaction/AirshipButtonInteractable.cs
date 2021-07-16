@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// For notifying the <see cref="AirshipCockpit"/> when a button is clicked.
 /// </summary>
+[RequireComponent(typeof(AudioSource))]
 public class AirshipButtonInteractable : Interactable
 {
     public override InteractableType InteractableType => InteractableType.OneClick;
@@ -21,6 +22,10 @@ public class AirshipButtonInteractable : Interactable
 
     ButtonPressState state;
 
+    AudioSource audioSource;
+
+    [SerializeField] List<AudioClip> buttonPressAudioClips;
+
     new void Start()
     {
         base.Start();
@@ -28,6 +33,8 @@ public class AirshipButtonInteractable : Interactable
         airshipCockpit = GameObject.FindObjectOfType<AirshipCockpit>();
 
         state = ButtonPressState.Up;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // TODO: THESE MUST BE TESTED! (18:03 14/07/2021)
@@ -38,6 +45,8 @@ public class AirshipButtonInteractable : Interactable
             return;
 
         base.InteractBegin();
+
+        PlayRandomClickSound();
 
         airshipCockpit.NotifyButtonPressStart(buttonActionPress);
 
@@ -50,6 +59,8 @@ public class AirshipButtonInteractable : Interactable
             return;
         
         base.InteractEnd();
+
+        PlayRandomClickSound();
 
         airshipCockpit.NotifyButtonPressEnd(buttonActionRelease);
 
@@ -66,5 +77,12 @@ public class AirshipButtonInteractable : Interactable
         else if (Input.GetButtonUp(buttonAxisName))
             InteractEnd();
 
+    }
+
+    void PlayRandomClickSound()
+    {
+        if (buttonPressAudioClips == null || buttonPressAudioClips.Count == 0)
+            return;
+        audioSource.PlayOneShot(buttonPressAudioClips[Random.Range(0, buttonPressAudioClips.Count)]);
     }
 }
