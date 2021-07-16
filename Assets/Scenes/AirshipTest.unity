@@ -969,6 +969,8 @@ GameObject:
   m_Component:
   - component: {fileID: 730090752}
   - component: {fileID: 730090751}
+  - component: {fileID: 730090754}
+  - component: {fileID: 730090753}
   m_Layer: 0
   m_Name: Wind
   m_TagString: Untagged
@@ -996,12 +998,37 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730090750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.082174, y: 8.881974, z: 20.397108}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &730090753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730090750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef640d427b71cff40a76b637eaa0ef7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailPrefab: {fileID: 1235865388950070618, guid: a1cab9a028ca34348b4b09e8510080a9, type: 3}
+--- !u!114 &730090754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730090750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ae71bf025ba2f42a2bd25d0ae7fb63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1056585254
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,6 +1779,10 @@ PrefabInstance:
     - target: {fileID: 7343339770972642714, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
       propertyPath: m_Name
       value: First Person Controller For Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 7343339770972642714, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
