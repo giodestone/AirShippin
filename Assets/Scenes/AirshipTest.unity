@@ -742,23 +742,6 @@ MonoBehaviour:
   rotateCameraInsteadOfCharacter: 1
   sensitivity: 2
   smoothing: 1.5
---- !u!1 &447655933 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 121311220566939572, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-  m_PrefabInstance: {fileID: 968153214965010004}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &447655934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 447655933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1e86c83104fd8046af4bd556357e618, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &727925829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,66 +1597,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5283277108590974050, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 211254566, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 211254566, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3aeab8c0af7cf92469b46577cd077fe3, type: 3}
-    - target: {fileID: 211254566, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: d0d5ab3bc8387e146a6c07b3305e3b0c, type: 3}
-    - target: {fileID: 211254566, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9c265d8cae66b45478284935b572d236, type: 3}
-    - target: {fileID: 211254566, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 452c4dfc912c407499b2542546468118, type: 3}
-    - target: {fileID: 211254566, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 31964eab359430347a04da05850ad6e1, type: 3}
-    - target: {fileID: 211254566, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: dcaada459ce0fa54e8ddc9bd609e2930, type: 3}
-    - target: {fileID: 1457657377, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1457657377, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3aeab8c0af7cf92469b46577cd077fe3, type: 3}
-    - target: {fileID: 1457657377, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: d0d5ab3bc8387e146a6c07b3305e3b0c, type: 3}
-    - target: {fileID: 1457657377, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9c265d8cae66b45478284935b572d236, type: 3}
-    - target: {fileID: 1457657377, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 452c4dfc912c407499b2542546468118, type: 3}
-    - target: {fileID: 1457657377, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 31964eab359430347a04da05850ad6e1, type: 3}
-    - target: {fileID: 1457657377, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: buttonPressAudioClips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: dcaada459ce0fa54e8ddc9bd609e2930, type: 3}
     - target: {fileID: 121311220566939572, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
       propertyPath: m_Name
       value: Airship
@@ -1721,18 +1644,6 @@ PrefabInstance:
     - target: {fileID: 785081285593337102, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1426136863637326222, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: m_TagString
-      value: Envelope
-      objectReference: {fileID: 0}
-    - target: {fileID: 8233588010150403548, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8233588010150403548, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
