@@ -9,11 +9,18 @@ public class WindTierManager : MonoBehaviour
     const float windTierAltitudeOverlap = 20f; // Around which altitude should the wind from the upper/lower altitude be interpolated.
 
     List<WindTier> windTiers;
-    Dictionary<float, WindTier> windBuckets;
+    Dictionary<float, WindTier> windBuckets; // indexed by the start altitude.
 
     void Start()
     {
         SetupWindTiers();
+    }
+
+    void OnEnable()
+    {
+        // So hot-reload works.
+        if (windTiers == null || windTiers?.Count != numWindTiers)
+            SetupWindTiers();
     }
 
     void SetupWindTiers()
@@ -68,61 +75,62 @@ public class WindTierManager : MonoBehaviour
         UpdateWindTiers();
 
         //var temp = GetWind(Vector3.zero);
-        var temp2 = GetWind(new Vector3(0f, 180f, 0f));
-        var temp21 = GetWind(new Vector3(0f, 190f, 0f));
-        var temp22 = GetWind(new Vector3(0f, 200f, 0f));
-        var temp23 = GetWind(new Vector3(0f, 210f, 0f));
-        var temp24 = GetWind(new Vector3(0f, 220f, 0f));
+        // var temp2 = GetWind(new Vector3(0f, 180f, 0f));
+        // var temp21 = GetWind(new Vector3(0f, 190f, 0f));
+        // var temp22 = GetWind(new Vector3(0f, 200f, 0f));
+        // var temp23 = GetWind(new Vector3(0f, 210f, 0f));
+        // var temp24 = GetWind(new Vector3(0f, 220f, 0f));
 
-        var temp4 = GetWind(new Vector3(0f, -100f, 0f));
-        var temp41 = GetWind(new Vector3(0f, -10f, 0f));
-        var temp5 = GetWind(new Vector3(0f, windTeirAltitudeIncrement * (numWindTiers + 2), 0f));
+        // var temp4 = GetWind(new Vector3(0f, -100f, 0f));
+        // var temp41 = GetWind(new Vector3(0f, -10f, 0f));
+        // var temp5 = GetWind(new Vector3(0f, windTeirAltitudeIncrement * (numWindTiers + 2), 0f));
 
-        var temp6 = "end";
+        // var temp6 = "end";
     }
 
-    Vector3 GetWind(Vector3 position)
+    public Vector3 GetWind(Vector3 position)
     {
-        var windBucketIndex = (float)System.Math.Round(position.y / windTeirAltitudeIncrement, 0) * windTeirAltitudeIncrement;
-        var windBucketIndexClamped = Mathf.Clamp(windBucketIndex, 0f, windTeirAltitudeIncrement * (numWindTiers - 1));
-
-        var nextWindBucket = windBucketIndex + windTeirAltitudeIncrement;
-        var prevWindBucket = windBucketIndex - windTeirAltitudeIncrement;
-
-        if (position.y > 0f && position.y <= numWindTiers * windTeirAltitudeIncrement)
+        // Get current bucket.
+        var windBucketIndex = Mathf.Floor(position.y / windTeirAltitudeIncrement) * windTeirAltitudeIncrement;
+        
+        if (position.y > 0f && position.y < windTeirAltitudeIncrement * numWindTiers)
         {
-            var distToUpper = 
+            var nextBucketIndex = windBucketIndex + windTeirAltitudeIncrement;
+            var prevBucketIndex = windBucketIndex - windTeirAltitudeIncrement;
 
-            // Check Below
+            if (prevBucketIndex < 0f)
+                prevBucketIndex = 0f;
+
             if (position.y - windBucketIndex >= -0.001f && position.y - windBucketIndex <= windTierAltitudeOverlap + 0.001f)
             {
                 // Interpolate with below.
-                var progressBetweenAlt = ((position.y - windBucketIndex)) / (windTierAltitudeOverlap * 2f);
+                var progressBetweenAlt = ((position.y - windBucketIndex) + windTierAltitudeOverlap) / (windTierAltitudeOverlap * 2f);
 
-                var directionInterpolated = Vector3.Lerp(windBuckets[prevWindBucket].GetWindDirection, windBuckets[windBucketIndex].GetWindDirection, progressBetweenAlt);
-                var strengthInterplated = Mathf.Lerp(windBuckets[prevWindBucket].GetWindStrength, windBuckets[windBucketIndex].GetWindStrength, progressBetweenAlt);
+                var directionInterpolated = Vector3.Lerp(windBuckets[prevBucketIndex].GetWindDirection, windBuckets[windBucketIndex].GetWindDirection, progressBetweenAlt);
+                var strengthInterplated = Mathf.Lerp(windBuckets[prevBucketIndex].GetWindStrength, windBuckets[windBucketIndex].GetWindStrength, progressBetweenAlt);
                 
                 return directionInterpolated * strengthInterplated;
             }
-            else if (position.y - windBucketIndex <= 0.001f && position.y - windBucketIndex >= -windTierAltitudeOverlap - 0.001f)
+            else if (position.y - nextBucketIndex <= 0.001f && position.y - nextBucketIndex >= -windTierAltitudeOverlap - 0.001f)
             {
                 // Interpolate with above.
-                var progressBetweenAlt = (Mathf.Abs(position.y - windBucketIndex)) / (windTierAltitudeOverlap * 2f) ;
+                var progressBetweenAlt = (Mathf.Abs(position.y - nextBucketIndex) + windTierAltitudeOverlap) / (windTierAltitudeOverlap * 2f);
+                progressBetweenAlt -= 1f; // Needs to be 0.0 at min, 0.5 at max.
+                progressBetweenAlt = Mathf.Abs(progressBetweenAlt); // TODO reverse order.
 
-                var directionInterpolated = Vector3.Lerp(windBuckets[nextWindBucket].GetWindDirection, windBuckets[windBucketIndex].GetWindDirection, progressBetweenAlt);
-                var strengthInterplated = Mathf.Lerp(windBuckets[nextWindBucket].GetWindStrength, windBuckets[windBucketIndex].GetWindStrength, progressBetweenAlt);
+                var directionInterpolated = Vector3.Lerp(windBuckets[windBucketIndex].GetWindDirection, windBuckets[nextBucketIndex].GetWindDirection, progressBetweenAlt);
+                var strengthInterplated = Mathf.Lerp(windBuckets[windBucketIndex].GetWindStrength, windBuckets[nextBucketIndex].GetWindStrength, progressBetweenAlt);
 
                 return directionInterpolated * strengthInterplated;
             }
             else
             {
-                throw new System.Exception();
+                return windBuckets[windBucketIndex].GetWindDirection * windBuckets[windBucketIndex].GetWindStrength;
             }
         }
-        else
-        {
-            var wt = windBuckets[windBucketIndex];
-            return wt.GetWindDirection * wt.GetWindStrength;
-        }        
+
+        var windBucketIndexClamped = Mathf.Clamp(windBucketIndex, 0f, windTeirAltitudeIncrement * (numWindTiers - 1));
+
+        return windBuckets[windBucketIndexClamped].GetWindDirection * windBuckets[windBucketIndexClamped].GetWindStrength;
     }
 }
