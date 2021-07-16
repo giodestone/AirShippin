@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AirshipCockpit : MonoBehaviour
 {
+    Burner burner;
+
+    void Start()
+    {
+        burner = GetComponent<Burner>();
+    }
+
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
     {
         // TODO
@@ -12,6 +19,7 @@ public class AirshipCockpit : MonoBehaviour
         switch (airshipButtonAction)
         {
             case AirshipButtonAction.BurnerStart:
+                burner.AttemptBurnStart();
                 break;
             case AirshipButtonAction.VentStart:
                 break;
@@ -25,6 +33,7 @@ public class AirshipCockpit : MonoBehaviour
         switch (airshipButtonAction)
         {
             case AirshipButtonAction.BurnerEnd:
+                burner.BurnStop();
                 break;
             case AirshipButtonAction.VentEnd:
                 break;
