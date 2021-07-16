@@ -9,9 +9,13 @@ public class HotAirBalloon : MonoBehaviour
 	private float BalloonTemperature;
 	private float BalloonPressure;
 	private float MediumTemperature;
-	private bool isBurnerOn = false;
-	private bool isReleaseOn = false;
+
+	public bool isBurnerOn = false;
+	public bool isReleaseOn = false;
+
 	private float height;
+
+	private Vector3 force;
 
 
 	public float AmbientTemperature;
@@ -23,8 +27,8 @@ public class HotAirBalloon : MonoBehaviour
     {
 		rb = GetComponent<Rigidbody>();
 		AmbientTemperature = AtmosphereManager.GetAmbientTemperature(transform.position.y);
-		AmbientPressure = AtmosphereManager.GetAmbientPressure(transform.position.y, BalloonTemperature);
 		BalloonTemperature = AmbientTemperature;
+		AmbientPressure = AtmosphereManager.GetAmbientPressure(transform.position.y, BalloonTemperature);
 		MediumTemperature = AmbientTemperature;
 		BalloonPressure = AmbientPressure;
 		height = 1f;
@@ -39,7 +43,11 @@ public class HotAirBalloon : MonoBehaviour
 
     void FixedUpdate()
     {
-		rb.AddForce(GetYForce(height));
+		force = GetYForce(height);
+		Debug.Log(force);
+		Debug.Log(BalloonTemperature);
+		Debug.Log(AmbientTemperature);
+		rb.AddForce(force);
 		if (isBurnerOn)
 		{
 			BurnerOn();
@@ -52,7 +60,9 @@ public class HotAirBalloon : MonoBehaviour
 
 	void BurnerOn()
 	{
-		BalloonTemperature += GetTemperatureRate(500f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 1f, 60f, AtmosphereManager.ThermalConductivity, AtmosphereManager.HeatCapacityAir);
+		/*float increment = GetTemperatureRate(773.15f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 1f, 60f, AtmosphereManager.ThermalConductivity, AtmosphereManager.HeatCapacityAir);*/
+		float increment = GetConvectionRate(800f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 1f, AtmosphereManager.ThermalConvectivity, AtmosphereManager.HeatCapacityAir);
+		BalloonTemperature += increment;
 	}
 
 	void PassiveLoss()
@@ -67,7 +77,14 @@ public class HotAirBalloon : MonoBehaviour
 
 	void ReleaseOn()
 	{
-		BalloonTemperature += GetTemperatureRate(AmbientTemperature, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 8f, 60f, AtmosphereManager.ThermalConductivity, AtmosphereManager.HeatCapacityAir);
+		BalloonTemperature += GetConvectionRate(AmbientTemperature, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 8f, AtmosphereManager.ThermalConvectivity, AtmosphereManager.HeatCapacityAir);
+	}
+
+	static float GetConvectionRate(float T1, float T2, float density, float dt, float Area, float ThermalConvectivity, float HeatCapacity)
+	{
+		float Rate = ThermalConvectivity * Area * (T1 - T2);
+		float dT = Rate * dt / (density * HeatCapacity);
+		return dT;
 	}
 
 	static float GetTemperatureRate(float T1, float T2, float density, float dt, float Area, float Thickness, float ThermalConductivity, float HeatCapacity)

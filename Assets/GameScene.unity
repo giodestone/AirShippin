@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7340998262340650546, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -970.9412
+      value: -1030.9412
       objectReference: {fileID: 0}
     - target: {fileID: 7340998262340650546, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7340998262340650546, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1054.2698
+      value: 1024.27
       objectReference: {fileID: 0}
     - target: {fileID: 7340998262340650546, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -903,6 +903,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f13e8f5ede46fd45b608060a4d2b462, type: 3}
+--- !u!1 &1043827814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1426136863637326222, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+  m_PrefabInstance: {fileID: 1910644264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1043827821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043827814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef9f19c452fe1724c87effa7dc13093f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBurnerOn: 0
+  isReleaseOn: 0
+  AmbientTemperature: 0
+  AmbientPressure: 0
 --- !u!1001 &1058278152
 PrefabInstance:
   m_ObjectHideFlags: 0
