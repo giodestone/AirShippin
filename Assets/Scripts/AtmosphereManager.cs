@@ -13,7 +13,7 @@ public static class AtmosphereManager
 	public const float SpecficGasConstant = 287f;
 	public const float HeatCapacityAir = 716f;
 	public const float ThermalConductivity = 0.024f;
-	public const float ThermalConvectivity = 5f;
+	public const float ThermalConvectivity = 2f;
 
 	private static float pollution = 0.0f;
 

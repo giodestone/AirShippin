@@ -33,7 +33,7 @@ public class HotAirBalloon : MonoBehaviour
 		MediumTemperature = AmbientTemperature;
 		BalloonPressure = AmbientPressure;
 		height = 1f;
-		BalloonVolume = 213386f;
+		BalloonVolume = 26673f;
     }
 
 	// Update is called once per frame
@@ -70,9 +70,9 @@ public class HotAirBalloon : MonoBehaviour
 	void PassiveLoss()
 	{
 		/*Assume Balloon Sphere, ~Physics*/
-		MediumTemperature += GetTemperatureRate(BalloonTemperature, MediumTemperature, 1440, Time.deltaTime, 4722f, 0.25f, 0.04f, 1420f);
+		MediumTemperature += GetTemperatureRate(BalloonTemperature, MediumTemperature, 1440, Time.deltaTime, 4722f, 0.05f, 0.04f, 1420f);
 
-		MediumTemperature += GetTemperatureRate(AmbientTemperature, MediumTemperature, 1440, Time.deltaTime, 4824f, 0.25f, 0.04f, 1420f);
+		MediumTemperature += GetTemperatureRate(AmbientTemperature, MediumTemperature, 1440, Time.deltaTime, 4824f, 0.05f, 0.04f, 1420f);
 
 		BalloonTemperature += GetTemperatureRate(MediumTemperature, BalloonTemperature, GetBalloonDensity(), Time.deltaTime, 4722f, 60f, 0.04f, AtmosphereManager.HeatCapacityAir);
 	}
