@@ -6,9 +6,17 @@ public class ItemInteractable : Interactable
 {
     public override InteractableType InteractableType { get => InteractableType.Item; }
 
+    public ItemHolder ItemHolder { get; set; }
+    public bool IsInHolder { get => ItemHolder != null; }
+
     public override void InteractBegin()
     {
         base.InteractBegin();
+
+        if (IsInHolder)
+        {
+            ItemHolder.TakeItemOut(this.gameObject);
+        }
     }
 
     public override void InteractEnd()
