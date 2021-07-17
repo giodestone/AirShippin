@@ -6,14 +6,16 @@ public class AirshipCockpit : MonoBehaviour
 {
     Burner burner;
     Release release;
-    Propeller propeller;
+	Propeller propeller;
 
-    void Start()
+    private float throttle;
+
+	void Start()
     {
         burner = GetComponent<Burner>();
         release = GetComponent<Release>();
-        propeller = GetComponent<Propeller>();
-    }
+		propeller = GameObject.FindObjectOfType<Propeller>();
+	}
 
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
     {
@@ -57,6 +59,8 @@ public class AirshipCockpit : MonoBehaviour
     {
         // TODO
         // Debug.Log("Throttle: " + newValue);
-        propeller.CalcThrust(newValue);
-    }
+        throttle += newValue;
+        throttle = Mathf.Clamp01(throttle);
+        propeller.ThrottleValue = throttle;
+	}
 }

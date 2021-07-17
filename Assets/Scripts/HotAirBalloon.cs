@@ -18,6 +18,10 @@ public class HotAirBalloon : MonoBehaviour
 
 	private Vector3 force;
 
+	[SerializeField] Transform point1;
+	[SerializeField] Transform point2;
+	[SerializeField] Transform point3;
+	[SerializeField] Transform point4;
 
 	public float AmbientTemperature;
 	public float AmbientPressure;
@@ -39,6 +43,8 @@ public class HotAirBalloon : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		AmbientTemperature = AtmosphereManager.GetAmbientTemperature(height);
+		AmbientPressure = AtmosphereManager.GetAmbientPressure(height, AmbientTemperature);
 		PassiveLoss();
 		height = transform.position.y;
 	}
@@ -46,10 +52,15 @@ public class HotAirBalloon : MonoBehaviour
     void FixedUpdate()
     {
 		force = GetYForce(height);
-		Debug.Log(force);
 		Debug.Log(BalloonTemperature);
 		Debug.Log(AmbientTemperature);
+		Debug.Log(rb.angularVelocity);
+		float xCorrection = AngularCorrection(rb.angularVelocity.x);
+		float zCorrection = AngularCorrection(rb.angularVelocity.z);
+		Debug.Log(new Vector3(xCorrection, 0f, zCorrection));
+		rb.AddTorque(new Vector3(xCorrection, 0f, zCorrection));
 		rb.AddForce(force);
+
 		if (isBurnerOn)
 		{
 			BurnerOn();
@@ -60,11 +71,16 @@ public class HotAirBalloon : MonoBehaviour
 		}
     }
 
+	private float AngularCorrection(float rotationalVel)
+	{
+		return -1 * rotationalVel * rb.inertiaTensor.magnitude;
+	}
+
 	void BurnerOn()
 	{
 		/*float increment = GetTemperatureRate(773.15f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 1f, 60f, AtmosphereManager.ThermalConductivity, AtmosphereManager.HeatCapacityAir);*/
 		float increment = GetConvectionRate(800f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 1f, AtmosphereManager.ThermalConvectivity, AtmosphereManager.HeatCapacityAir);
-		BalloonTemperature += increment;
+		BalloonTemperature += increment+0.5f;
 	}
 
 	void PassiveLoss()

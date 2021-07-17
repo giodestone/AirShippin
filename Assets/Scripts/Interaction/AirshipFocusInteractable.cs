@@ -9,7 +9,7 @@ public class AirshipFocusInteractable : FocusInteractable
 {
     const float clickReach = 5f;
     const float throttleIncreaseSpeedModifier = 0.05f;
-    const float steeringSpeedModifier = 0.1f;
+    const float steeringSpeedModifier = 0.05f;
 
     bool isFocused = false;
 
