@@ -25,6 +25,8 @@ public class PlayerInteraction : MonoBehaviour
     Quaternion originalItemRotation;
     Vector3 originalItemScale;
 
+    bool wasFire1Down = false;
+
     void Update()
     {
         switch (playerInteractionState)
@@ -43,10 +45,11 @@ public class PlayerInteraction : MonoBehaviour
 
     void FreeStateUpdate(bool onlyConsiderOneClick=false)
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && !wasFire1Down)
         {
             if (Physics.Raycast(camera.transform.position, camera.transform.forward, out var hitInfo, playerReach))
             {
+                Debug.Log(hitInfo.collider.name);
                 if (InteractableDatabase.GetInteractableIfPresent(hitInfo.collider.gameObject, out var interactable))
                 {
                     switch (interactable.InteractableType)
@@ -78,12 +81,20 @@ public class PlayerInteraction : MonoBehaviour
                     }
                 }
             }
+
+            wasFire1Down = true;
         }
         else if (currentInteractable != null)
         {
             currentInteractable.InteractEnd();
             previousInteractable = currentInteractable;
             currentInteractable = null;
+            
+            wasFire1Down = false;
+        }
+        else
+        {
+            wasFire1Down = false;
         }
     }
 
