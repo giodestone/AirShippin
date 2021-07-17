@@ -6,11 +6,13 @@ public class AirshipCockpit : MonoBehaviour
 {
     Burner burner;
     Release release;
+    Propeller propeller;
 
     void Start()
     {
         burner = GetComponent<Burner>();
         release = GetComponent<Release>();
+        propeller = GetComponent<Propeller>();
     }
 
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
@@ -48,11 +50,13 @@ public class AirshipCockpit : MonoBehaviour
     {
         // TODO
         // Debug.Log("Steering: " + newValue);
+
     }
 
     public void UpdateThrottle(float newValue)
     {
         // TODO
         // Debug.Log("Throttle: " + newValue);
+        propeller.CalcThrust(newValue);
     }
 }
