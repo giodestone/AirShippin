@@ -93,7 +93,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            PutDownItem();
+            PutDownItemOrPutInHolder();
         }
         else if (Input.GetButtonDown("Fire2"))
         {
@@ -155,6 +155,10 @@ public class PlayerInteraction : MonoBehaviour
     void PickUpItem(Interactable interactable)
     {
         currentInteractable = interactable;
+
+        if (((ItemInteractable)currentInteractable).IsInHolder)
+            ((ItemInteractable)currentInteractable).ItemHolder.TakeItemOut(currentInteractable.gameObject);
+
         originalItemParent = currentInteractable.transform.parent;
         originalItemPosition = currentInteractable.transform.position;
         originalItemRotation = currentInteractable.transform.rotation;
@@ -166,26 +170,29 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 
-    void PutDownItem()
+    void PutDownItemOrPutInHolder()
     {
         currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = true;
 
-        if (Physics.Raycast(itemAttachmentPoint.position, -itemAttachmentPoint.transform.up, out var hitInfo, 5f, LayerMask.GetMask("ItemPutDownSurface")))
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out var hitInfoCam, playerReach, LayerMask.GetMask("ItemPutDownSurface")) 
+        && hitInfoCam.transform.gameObject.GetComponent<ItemHolder>() != null)
         {
             // Check if raycast hit an ItemHolder
-            var itemHolder = hitInfo.transform.gameObject.GetComponent<ItemHolder>();
-            if (itemHolder != null)
+            var itemHolder = hitInfoCam.transform.gameObject.GetComponent<ItemHolder>();
+            if (itemHolder != null && !itemHolder.IsHolderFull)
             {
-                throw new NotImplementedException();
+                itemHolder.PutItemIn(currentInteractable.gameObject);
             }
-            // Otherwise plonk it down infront of player and set it as the parent transform so it doesn't flop about.
-            else
-            {
-                currentInteractable.transform.parent = hitInfo.transform;
-                currentInteractable.transform.position = hitInfo.point;
-                currentInteractable.transform.rotation = Quaternion.Euler(hitInfo.normal);
-                currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            }
+        }
+        else if (Physics.Raycast(itemAttachmentPoint.position, -itemAttachmentPoint.transform.up, out var hitInfoFeet, 5f, LayerMask.GetMask("ItemPutDownSurface")))
+        {
+
+            // plonk it down infront of player and set it as the parent transform so it doesn't flop about.
+            currentInteractable.transform.position = hitInfoFeet.point;
+            currentInteractable.transform.rotation = Quaternion.Euler(hitInfoFeet.normal);
+            currentInteractable.transform.parent = hitInfoFeet.transform;
+            currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        
 
         }
         // Otherwise let physics take the wheel.
