@@ -13,6 +13,7 @@ public static class AtmosphereManager
 	public const float SpecficGasConstant = 287f;
 	public const float HeatCapacityAir = 716f;
 	public const float ThermalConductivity = 0.024f;
+	public const float ThermalConvectivity = 2f;
 
 	private static float pollution = 0.0f;
 
@@ -29,7 +30,8 @@ public static class AtmosphereManager
 
     public static float GetAmbientPressure(float height, float AmbientTemperature)
     {
-		return Mathf.Pow(RefPressure * (1f - (0.0065f * height) / (AmbientTemperature + 0.0065f * height)), 5.257f);
+		float eqn = 1f - (0.0065f * height) / (AmbientTemperature + 0.0065f * height);
+		return RefPressure * Mathf.Pow(eqn, 5.257f);
     }
 
 	public static float GetAmbientDensity(float height)
