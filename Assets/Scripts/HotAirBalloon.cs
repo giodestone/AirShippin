@@ -9,6 +9,7 @@ public class HotAirBalloon : MonoBehaviour
 	private float BalloonTemperature;
 	private float BalloonPressure;
 	private float MediumTemperature;
+	private float BalloonVolume;
 
 	public bool isBurnerOn = false;
 	public bool isReleaseOn = false;
@@ -32,6 +33,7 @@ public class HotAirBalloon : MonoBehaviour
 		MediumTemperature = AmbientTemperature;
 		BalloonPressure = AmbientPressure;
 		height = 1f;
+		BalloonVolume = 213386f;
     }
 
 	// Update is called once per frame
@@ -68,11 +70,11 @@ public class HotAirBalloon : MonoBehaviour
 	void PassiveLoss()
 	{
 		/*Assume Balloon Sphere, ~Physics*/
-		MediumTemperature += GetTemperatureRate(BalloonTemperature, MediumTemperature, 1440, Time.deltaTime, 17400f, 0.5f, 0.04f, 1420f);
+		MediumTemperature += GetTemperatureRate(BalloonTemperature, MediumTemperature, 1440, Time.deltaTime, 4722f, 0.25f, 0.04f, 1420f);
 
-		MediumTemperature += GetTemperatureRate(AmbientTemperature, MediumTemperature, 1440, Time.deltaTime, 17650f, 0.5f, 0.04f, 1420f);
+		MediumTemperature += GetTemperatureRate(AmbientTemperature, MediumTemperature, 1440, Time.deltaTime, 4824f, 0.25f, 0.04f, 1420f);
 
-		BalloonTemperature += GetTemperatureRate(MediumTemperature, BalloonTemperature, GetBalloonDensity(), Time.deltaTime, 17400f, 74.5f, 0.04f, AtmosphereManager.HeatCapacityAir);
+		BalloonTemperature += GetTemperatureRate(MediumTemperature, BalloonTemperature, GetBalloonDensity(), Time.deltaTime, 4722f, 60f, 0.04f, AtmosphereManager.HeatCapacityAir);
 	}
 
 	void ReleaseOn()
@@ -96,7 +98,9 @@ public class HotAirBalloon : MonoBehaviour
 
 	Vector3 GetYForce(float height)
 	{
-		return new Vector3(0f, (AtmosphereManager.GetAmbientDensity(height) - GetBalloonDensity()) * 2800f * 9.80665f, 0f);
+		float AmbientDensity = AtmosphereManager.GetAmbientDensity(height);
+		float BalloonDensity = GetBalloonDensity();
+		return new Vector3(0f, (AmbientDensity - BalloonDensity) * BalloonVolume * 9.80665f, 0f);
 	}
 
 	float GetBalloonDensity()
