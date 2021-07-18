@@ -23,4 +23,11 @@ public class ItemInteractable : Interactable
     {
         base.InteractEnd();
     }
+
+    protected override void OnDestoryOverridable()
+    {
+        base.OnDestoryOverridable();
+        
+        ItemHolder?.ItemHeldDestroyed();
+    }
 }
