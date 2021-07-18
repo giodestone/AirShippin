@@ -30,6 +30,7 @@ public class AirShip : MonoBehaviour
 		if (IsMoving)
 		{
 			Vector3 Drag = this.GetDrag();
+			Debug.Log(Drag);
 			rb.AddForce(Drag);
 		}
     }
