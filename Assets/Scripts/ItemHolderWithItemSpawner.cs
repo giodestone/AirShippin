@@ -27,11 +27,9 @@ public class ItemHolderWithItemSpawner : ItemHolder
     {
         if (counter.IsAnythingInCollider)
         {
-            Debug.Log("Cannot spawn something in way.");
             SpawnCanisterAfterDelay();
             return;
         }
-        Debug.Log("Spawning!");
 
         var intanciatedObject = Instantiate(itemPrefab, parent: itemAttachmentPoint);
         PutItemIn(intanciatedObject);
@@ -42,7 +40,7 @@ public class ItemHolderWithItemSpawner : ItemHolder
     public override void TakeItemOut(GameObject item)
     {
         base.TakeItemOut(item);
-        
+
         counter.RemoveObject(item.gameObject);
     }
 }

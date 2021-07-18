@@ -49,7 +49,6 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (Physics.Raycast(camera.transform.position, camera.transform.forward, out var hitInfo, playerReach))
             {
-                Debug.Log(hitInfo.collider.name);
                 if (InteractableDatabase.GetInteractableIfPresent(hitInfo.collider.gameObject, out var interactable))
                 {
                     switch (interactable.InteractableType)
