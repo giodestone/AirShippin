@@ -71,13 +71,14 @@ public class HotAirBalloon : MonoBehaviour
 		Debug.DrawLine(transform.position, transform.position + (torqueVector * 1000f));
 		rb.AddForce(force);
 
+		Debug.Log(FuelInUse.Fuel);
+
 		if (isBurnerOn)
 		{
 			if (FuelInUse.Fuel > 0f)
 			{
 				BurnerOn();
 				FuelInUse.Fuel -= 0.01f * Time.fixedDeltaTime;
-				Debug.Log(FuelInUse.Fuel);
 				AtmosphereManager.pollution += 1f;
 			}
 		}
