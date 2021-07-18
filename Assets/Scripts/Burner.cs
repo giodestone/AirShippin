@@ -5,6 +5,7 @@ using UnityEngine;
 public class Burner : MonoBehaviour
 {
     HotAirBalloon Balloon;
+
 	private void Start()
 	{
         Balloon = FindObjectOfType<HotAirBalloon>();
