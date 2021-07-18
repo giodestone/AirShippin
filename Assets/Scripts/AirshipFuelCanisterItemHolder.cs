@@ -36,7 +36,9 @@ public class AirshipFuelCanisterItemHolder : ItemHolder
 
     public override void PutItemIn(GameObject item)
     {
-        currentInteractableFuelCansiter = item.GetComponentInChildren<FuelCanisterItemInteractable>();
+        currentInteractableFuelCansiter = item.GetComponent<FuelCanisterItemInteractable>();
+        if (currentInteractableFuelCansiter == null)
+            currentInteractableFuelCansiter = item.GetComponentInChildren<FuelCanisterItemInteractable>();
         
         base.PutItemIn(item);
     }
