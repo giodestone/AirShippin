@@ -9,6 +9,11 @@ public class AirShip : MonoBehaviour
 
 	private float height;
 
+	[SerializeField] GameObject WindPoint1;
+	[SerializeField] GameObject WindPoint2;
+
+	WindManager windManager;
+
 	private bool IsMoving = false;
 
     // Start is called before the first frame update
@@ -16,7 +21,10 @@ public class AirShip : MonoBehaviour
     {
 		rb = GetComponent<Rigidbody>();
 		height = 1f;
-    }
+		WindPoint1 = GameObject.Find("WindPoint1");
+		WindPoint2 = GameObject.Find("WindPoint2");
+		windManager = GameObject.FindObjectOfType<WindManager>();
+	}
 
 	void Update()
 	{
@@ -26,7 +34,8 @@ public class AirShip : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-		rb.AddForce(GetWindForce());
+		rb.AddForce(GetWindForce(WindPoint1));
+		rb.AddForce(GetWindForce(WindPoint2));
 		if (IsMoving)
 		{
 			Vector3 Drag = this.GetDrag();
@@ -35,9 +44,12 @@ public class AirShip : MonoBehaviour
 		}
     }
 
-	Vector3 GetWindForce()
+	Vector3 GetWindForce(GameObject Point)
 	{
-		Vector3 Force = new Vector3(0f, 0f, 0f) /*WindManager.Wind(height)*/;
+		Vector3 windSpeed = windManager.GetWind(Point.transform.position);
+		float Area = 0.5f * Mathf.PI * 40f * 40f;
+		float airDensity = AtmosphereManager.GetAmbientDensity(transform.position.y);
+		Vector3 Force = Area * airDensity * windSpeed;
 		return Force;
 	}
 
