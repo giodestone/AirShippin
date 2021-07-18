@@ -15,13 +15,9 @@ public static class AtmosphereManager
 	public const float ThermalConductivity = 0.024f;
 	public const float ThermalConvectivity = 2f;
 
-	public static float pollution = 0.0f;
 
-	//public static void climatechange(float fuelconsumption)
-	//{
-	//	/*todo*/
-	//	pollution = fuelconsumption * 0.5f;
-	//}
+	private static float pollution = 0.0f;
+  const float pollutionPerParcel = 20f;
 
 	public static float GetAmbientTemperature(float height)
     {
@@ -40,5 +36,10 @@ public static class AtmosphereManager
 		float AmbientPressure = GetAmbientPressure(height, AmbientTemperature);
 		return AmbientPressure / (SpecficGasConstant * AmbientTemperature);
 	}
+
+	public static void ParcelsDelivered(float parcelsDelivered)
+	{
+        pollution += pollutionPerParcel * parcelsDelivered;
+    }
 
 }

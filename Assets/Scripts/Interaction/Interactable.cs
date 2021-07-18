@@ -49,7 +49,6 @@ public class Interactable : MonoBehaviour
     void OnDestroy()
     {
         InteractableDatabase.UnregiserInteractable(this);
-        Debug.Log("parent");
         OnDestoryOverridable();
     }
 

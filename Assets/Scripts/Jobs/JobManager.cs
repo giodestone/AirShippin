@@ -71,7 +71,16 @@ public class JobManager : MonoBehaviour
                 break;
             case JobState.HasJob:
                 if (jobButtonAction == JobButtonAction.CancelJob)
+                {
                     CancelCurrentJob();
+                }
+                else if (jobButtonAction == JobButtonAction.SubmitJob)
+                {
+                    State = JobState.SubmitJob; // omg yes this is weird but we're notifying all hubs that stuff happening via setter (setter side effects are not a good idea)!
+                    State = JobState.JobComplete;
+                    State = JobState.NoJob;
+                    RemoveAllParcels();
+                }
                 break;
 
         }
