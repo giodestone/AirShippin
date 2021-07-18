@@ -11,6 +11,9 @@ public class AirshipCockpit : MonoBehaviour
 
     AirshipFuelCanisterItemHolder FuelInUse;
 
+    [SerializeField] Transform steeringWheelTransform;
+    [SerializeField] Transform throttleTransform;
+
     private float throttle;
     private float steering;
 
@@ -64,6 +67,8 @@ public class AirshipCockpit : MonoBehaviour
         steering = Mathf.Clamp(steering, -1f, 1f);
         rudder.steeringValue = steering;
 
+        UpdateSteeringModel();
+
     }
 
     public void UpdateThrottle(float newValue)
@@ -77,5 +82,25 @@ public class AirshipCockpit : MonoBehaviour
             throttle = Mathf.Clamp(throttle, -0.15f, 1f);
             propeller.ThrottleValue = throttle;
         }
-	}
+
+        UpdateThrottleModel();
+    }
+
+    void UpdateThrottleModel()
+    {
+        // -15 x max    -160x min
+        var minRotation = Quaternion.Euler(-15f, 0f, 0f);
+        var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
+
+        throttleTransform.localRotation = Quaternion.Lerp(minRotation, maxRotation, throttle);
+    }
+
+    void UpdateSteeringModel()
+    {
+        //-180x left, 0 right
+        var minRotation = Quaternion.Euler(0, 0f, 0f);
+        var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
+
+        steeringWheelTransform.localRotation = Quaternion.LerpUnclamped(minRotation, maxRotation, steering + 0.5f);
+    }
 }
