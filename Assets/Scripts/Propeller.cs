@@ -6,7 +6,7 @@ public class Propeller : MonoBehaviour
 {
     public Rigidbody rb;
 
-    private float Power = 93212.48f;
+    private float Power = 150000f;
     private float AppliedThrust;
     public float ThrottleValue { get; set; }
 
@@ -33,6 +33,7 @@ public class Propeller : MonoBehaviour
             AtmosphereManager.pollution += 1f * ThrottleValue;
         }
         TotalThrust = -1*Envelope.transform.up * AppliedThrust;
+        Debug.DrawLine(transform.position, transform.position + (-1*  Envelope.transform.up * 100f));
         rb.AddForce(TotalThrust);
     }
 }

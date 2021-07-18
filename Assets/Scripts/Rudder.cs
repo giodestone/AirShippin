@@ -20,9 +20,8 @@ public class Rudder : MonoBehaviour
     void FixedUpdate()
     {
         float velocity = Vector3.Dot(rb.velocity, -1f * transform.up.normalized);
-        float turningForce = velocity * steeringValue * 600000f;
+        float turningForce = velocity * steeringValue * 150000f;
         Debug.Log(turningForce);
-        Debug.DrawLine(transform.position, transform.position + (transform.forward * 100f) );
         rb.AddTorque(transform.forward * turningForce);
     }
 }

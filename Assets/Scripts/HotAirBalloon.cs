@@ -20,10 +20,12 @@ public class HotAirBalloon : MonoBehaviour
 
 	public float AmbientTemperature;
 	public float AmbientPressure;
+	public float stability;
+	public float speed;
 
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 		rb = GetComponent<Rigidbody>();
 		AmbientTemperature = AtmosphereManager.GetAmbientTemperature(transform.position.y);
@@ -33,7 +35,9 @@ public class HotAirBalloon : MonoBehaviour
 		BalloonPressure = AmbientPressure;
 		height = 1f;
 		BalloonVolume = 26673f;
-    }
+		stability = 0.3f;
+		speed = 2.0f;
+}
 
 	// Update is called once per frame
 	void Update()
@@ -47,21 +51,14 @@ public class HotAirBalloon : MonoBehaviour
     void FixedUpdate()
     {
 		force = GetYForce(height);
-		Quaternion deltaQuat = Quaternion.FromToRotation(Quaternion.Euler(90f,0f,0f) * rb.transform.up, Vector3.up);
-
-		Vector3 axis;
-		float angle;
-
-		deltaQuat.ToAngleAxis(out angle, out axis);
-
-		float dampenFactor = 0.01f; // this value requires tuning
-		rb.AddTorque(-rb.angularVelocity * dampenFactor, ForceMode.Acceleration);
-
-		Debug.DrawLine(rb.transform.position, rb.transform.position + (rb.transform.right * 100f));
-
-		float adjustFactor = 0.005f; // this value requires tuning
-		rb.AddTorque(axis.normalized * angle * adjustFactor, ForceMode.Acceleration);
-		Debug.DrawLine(transform.position, transform.position + (force * 10000f));
+		Vector3 predictedUp = Quaternion.AngleAxis(
+		rb.angularVelocity.magnitude * Mathf.Rad2Deg * stability / speed,
+		rb.angularVelocity) * transform.forward;
+		Debug.DrawLine(transform.position, transform.position + (predictedUp * 1000f), Color.black);
+		Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
+		rb.AddTorque(torqueVector * speed * speed, ForceMode.VelocityChange);
+		Debug.Log(torqueVector);
+		Debug.DrawLine(transform.position, transform.position + (torqueVector * 1000f));
 		rb.AddForce(force);
 
 		if (isBurnerOn)
