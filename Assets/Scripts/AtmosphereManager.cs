@@ -16,8 +16,8 @@ public static class AtmosphereManager
 	public const float ThermalConvectivity = 2f;
 
 
-	private static float pollution = 0.0f;
-  const float pollutionPerParcel = 20f;
+	public static float pollution = 0.0f;
+	const float pollutionPerParcel = 20f;
 
 	public static float GetAmbientTemperature(float height)
     {
