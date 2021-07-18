@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FuelCanisterItemInteractable : ItemInteractable
 {
-    float fuel;
+    [SerializeField] float fuel = 1;
     
     /// <summary>
     /// How much fuel is in the canister.
