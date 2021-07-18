@@ -18,11 +18,6 @@ public class HotAirBalloon : MonoBehaviour
 
 	private Vector3 force;
 
-	[SerializeField] Transform point1;
-	[SerializeField] Transform point2;
-	[SerializeField] Transform point3;
-	[SerializeField] Transform point4;
-
 	public float AmbientTemperature;
 	public float AmbientPressure;
 
@@ -52,8 +47,6 @@ public class HotAirBalloon : MonoBehaviour
     void FixedUpdate()
     {
 		force = GetYForce(height);
-		Debug.Log(BalloonTemperature);
-		Debug.Log(AmbientTemperature);
 		Debug.Log(rb.angularVelocity);
 		float xCorrection = AngularCorrection(rb.angularVelocity.x);
 		float zCorrection = AngularCorrection(rb.angularVelocity.z);

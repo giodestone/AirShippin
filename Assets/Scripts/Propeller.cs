@@ -22,13 +22,12 @@ public class Propeller : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float velocity = rb.velocity.magnitude;
+        float velocity = Vector3.Dot(rb.velocity, transform.forward.normalized);
         float AppliedPower = Power * ThrottleValue;
         if (velocity > 0f)
         {
             AppliedThrust = AppliedPower / (velocity);
         }
-        Debug.Log(AppliedThrust);
         TotalThrust = new Vector3(0f, 0f, AppliedThrust);
         rb.AddRelativeForce(TotalThrust);
     }
