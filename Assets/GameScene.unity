@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 430053153}
   - component: {fileID: 430053152}
   - component: {fileID: 430053151}
+  - component: {fileID: 430053155}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -547,7 +548,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 811cfb822fc52b94997d2481839de2fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -591,6 +592,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &430053155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430053150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fbb15bf92b84f40a1eb030765b5afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameters:
+    albedo: {r: 0, g: 0, b: 0, a: 1}
+    meanFreePath: 1
+    anisotropy: 0
+    volumeMask: {fileID: 11700000, guid: 836429d92e1b49443b7743362fdeb1fe, type: 3}
+    textureScrollingSpeed: {x: 0, y: 0, z: 0}
+    textureTiling: {x: 1, y: 1, z: 1}
+    positiveFade: {x: 0, y: 0, z: 0}
+    negativeFade: {x: 0, y: 0, z: 0}
+    m_EditorUniformFade: 0
+    m_EditorPositiveFade: {x: 0, y: 0, z: 0}
+    m_EditorNegativeFade: {x: 0, y: 0, z: 0}
+    m_EditorAdvancedFade: 0
+    size: {x: 3000, y: 40, z: 3000}
+    invertFade: 0
+    distanceFadeStart: 10000
+    distanceFadeEnd: 10000
+    textureIndex: 0
+    textureOffset: {x: -0, y: -0, z: 0}
+  m_Version: 2
 --- !u!1001 &475260006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -876,6 +909,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4645182389684381656, guid: 6f13e8f5ede46fd45b608060a4d2b462, type: 3}
   m_PrefabInstance: {fileID: 689155738}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &806494208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8928170172427945840, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+  m_PrefabInstance: {fileID: 1910644264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &806494215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806494208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5b4a649936ecd4e8262ecd7f34bf5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
 --- !u!1001 &961390744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1090,6 +1141,8 @@ MonoBehaviour:
   isReleaseOn: 0
   AmbientTemperature: 0
   AmbientPressure: 0
+  stability: 0
+  speed: 0
 --- !u!1 &1052623154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,6 +1531,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1340039144410747292, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7072302
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340039144410747292, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7069834
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340039144410747292, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340039144410747292, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340039144410747292, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340039144410747292, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4525654738803360259, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
       propertyPath: m_LocalPosition.y
       value: -13.99818
@@ -1516,7 +1593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1910644267}
-  FanPoint: {fileID: 0}
+  Envelope: {fileID: 0}
 --- !u!4 &1910644269 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4266692680838718250, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
