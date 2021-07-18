@@ -10,10 +10,10 @@ using UnityEngine.Assertions;
 /// </summary>
 public class ItemHolder : MonoBehaviour
 {
-    [SerializeField] Transform itemAttachmentPoint;
+    [SerializeField] protected Transform itemAttachmentPoint;
 
     public bool IsHolderFull { get => currentItem != null; }
-
+    public GameObject CurrentItem { get => currentItem; }
     GameObject currentItem;
     KeepInPlace keepInPlace;
 
@@ -25,6 +25,10 @@ public class ItemHolder : MonoBehaviour
     public virtual void PutItemIn(GameObject item)
     {
         currentItem = item;
+
+        var itemInteractable = item.GetComponent<ItemInteractable>();
+        if (itemInteractable != null)
+            itemInteractable.ItemHolder = this;
 
         var rigidBody = item.GetComponent<Rigidbody>();
         if (rigidBody != null)
@@ -38,7 +42,7 @@ public class ItemHolder : MonoBehaviour
         keepInPlace.obj = item.transform;
         keepInPlace.target = itemAttachmentPoint;
         
-        SetItemCollisionState(item, false);
+        // SetItemCollisionState(item, false);
     }
 
     public void SetItemCollisionState(GameObject item, bool state)
@@ -58,11 +62,15 @@ public class ItemHolder : MonoBehaviour
             return;
         }
 
+        var itemInteractable = item.GetComponent<ItemInteractable>();
+        if (itemInteractable != null)
+            itemInteractable.ItemHolder = null;
+
         var rigidBody = item.GetComponent<Rigidbody>();
         if (rigidBody != null)
             rigidBody.isKinematic = false;
 
-        SetItemCollisionState(currentItem, true);
+        // SetItemCollisionState(currentItem, true);
 
         Destroy(keepInPlace);
         keepInPlace = null;

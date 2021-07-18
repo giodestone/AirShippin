@@ -25,6 +25,8 @@ public class PlayerInteraction : MonoBehaviour
     Quaternion originalItemRotation;
     Vector3 originalItemScale;
 
+    bool wasFire1Down = false;
+
     void Update()
     {
         switch (playerInteractionState)
@@ -43,7 +45,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void FreeStateUpdate(bool onlyConsiderOneClick=false)
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             if (Physics.Raycast(camera.transform.position, camera.transform.forward, out var hitInfo, playerReach))
             {
@@ -166,6 +168,7 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractable.transform.localPosition = Vector3.zero;
 
         currentInteractable.gameObject.transform.parent = itemAttachmentPoint;
+        currentInteractable.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = false;
         currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
