@@ -30,6 +30,7 @@ public class Propeller : MonoBehaviour
         if (velocity > 0f)
         {
             AppliedThrust = AppliedPower / (velocity);
+            AtmosphereManager.pollution += 1f * ThrottleValue;
         }
         TotalThrust = FanPoint.transform.forward * AppliedThrust;
         rb.AddForce(TotalThrust);

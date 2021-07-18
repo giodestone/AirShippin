@@ -39,6 +39,7 @@ public class HotAirBalloon : MonoBehaviour
 	void Update()
 	{
 		AmbientTemperature = AtmosphereManager.GetAmbientTemperature(height);
+		Debug.Log(AmbientTemperature);
 		AmbientPressure = AtmosphereManager.GetAmbientPressure(height, AmbientTemperature);
 		PassiveLoss();
 		height = transform.position.y;
@@ -47,7 +48,6 @@ public class HotAirBalloon : MonoBehaviour
     void FixedUpdate()
     {
 		force = GetYForce(height);
-		Debug.Log(rb.angularVelocity);
 		Quaternion deltaQuat = Quaternion.FromToRotation(Quaternion.Euler(90f,0f,0f) * rb.transform.up, Vector3.up);
 
 		Vector3 axis;
@@ -57,18 +57,17 @@ public class HotAirBalloon : MonoBehaviour
 
 		float dampenFactor = 0.01f; // this value requires tuning
 		rb.AddTorque(-rb.angularVelocity * dampenFactor, ForceMode.Acceleration);
-		Debug.Log(-rb.angularVelocity * dampenFactor);
 
 		Debug.DrawLine(rb.transform.position, rb.transform.position + (rb.transform.right * 100f));
 
 		float adjustFactor = 0.005f; // this value requires tuning
 		rb.AddTorque(axis.normalized * angle * adjustFactor, ForceMode.Acceleration);
-		Debug.Log(axis.normalized * angle * adjustFactor);
 		rb.AddForce(force);
 
 		if (isBurnerOn)
 		{
 			BurnerOn();
+			AtmosphereManager.pollution += 1f;
 		}
 		if (isReleaseOn)
 		{
