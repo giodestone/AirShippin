@@ -79,4 +79,12 @@ public class ItemHolder : MonoBehaviour
         currentItem = null;
 
     }
+
+    /// <summary>
+    /// Tell the item holder that the thing its holding has been destroyed.
+    /// </summary>
+    public virtual void ItemHeldDestroyed()
+    {
+        currentItem = null;
+    }
 }
