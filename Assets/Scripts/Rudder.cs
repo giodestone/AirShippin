@@ -19,9 +19,10 @@ public class Rudder : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float velocity = Vector3.Dot(rb.velocity, transform.forward.normalized);
-        float turningForce = velocity * steeringValue;
+        float velocity = Vector3.Dot(rb.velocity, -1f * transform.up.normalized);
+        float turningForce = velocity * steeringValue * 600000f;
         Debug.Log(turningForce);
-        rb.AddTorque(new Vector3(0f, turningForce, 0f));
+        Debug.DrawLine(transform.position, transform.position + (transform.forward * 100f) );
+        rb.AddTorque(transform.forward * turningForce);
     }
 }

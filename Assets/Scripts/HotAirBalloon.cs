@@ -39,7 +39,6 @@ public class HotAirBalloon : MonoBehaviour
 	void Update()
 	{
 		AmbientTemperature = AtmosphereManager.GetAmbientTemperature(height);
-		Debug.Log(AmbientTemperature);
 		AmbientPressure = AtmosphereManager.GetAmbientPressure(height, AmbientTemperature);
 		PassiveLoss();
 		height = transform.position.y;
@@ -62,6 +61,7 @@ public class HotAirBalloon : MonoBehaviour
 
 		float adjustFactor = 0.005f; // this value requires tuning
 		rb.AddTorque(axis.normalized * angle * adjustFactor, ForceMode.Acceleration);
+		Debug.DrawLine(transform.position, transform.position + (force * 10000f));
 		rb.AddForce(force);
 
 		if (isBurnerOn)
