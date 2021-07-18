@@ -6,9 +6,11 @@ public class Propeller : MonoBehaviour
 {
     public Rigidbody rb;
 
-    private float Power = 93212.48f;
+    private float Power = 150000f;
     private float AppliedThrust;
     public float ThrottleValue { get; set; }
+
+    [SerializeField] GameObject Envelope;
 
     private Vector3 TotalThrust;
 
@@ -17,18 +19,21 @@ public class Propeller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ThrottleValue = 0f;
+        Envelope = GameObject.Find("Envelope");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float velocity = Vector3.Dot(rb.velocity, transform.forward.normalized);
+        float velocity = Vector3.Dot(rb.velocity, -1*Envelope.transform.up.normalized);
         float AppliedPower = Power * ThrottleValue;
         if (velocity > 0f)
         {
             AppliedThrust = AppliedPower / (velocity);
+            AtmosphereManager.pollution += 1f * ThrottleValue;
         }
-        TotalThrust = new Vector3(0f, 0f, AppliedThrust);
-        rb.AddRelativeForce(TotalThrust);
+        TotalThrust = -1*Envelope.transform.up * AppliedThrust;
+        Debug.DrawLine(transform.position, transform.position + (-1*  Envelope.transform.up * 100f));
+        rb.AddForce(TotalThrust);
     }
 }
