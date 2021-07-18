@@ -10,6 +10,7 @@ public class HotAirBalloon : MonoBehaviour
 	private float BalloonPressure;
 	private float MediumTemperature;
 	private float BalloonVolume;
+	private AirshipFuelCanisterItemHolder FuelInUse;
 
 	public bool isBurnerOn = false;
 	public bool isReleaseOn = false;
@@ -20,10 +21,12 @@ public class HotAirBalloon : MonoBehaviour
 
 	public float AmbientTemperature;
 	public float AmbientPressure;
+	public float stability;
+	public float speed;
 
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
 		rb = GetComponent<Rigidbody>();
 		AmbientTemperature = AtmosphereManager.GetAmbientTemperature(transform.position.y);
@@ -33,7 +36,10 @@ public class HotAirBalloon : MonoBehaviour
 		BalloonPressure = AmbientPressure;
 		height = 1f;
 		BalloonVolume = 26673f;
-    }
+		stability = 0.3f;
+		speed = 2.0f;
+		FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
+}
 
 	// Update is called once per frame
 	void Update()
@@ -47,16 +53,25 @@ public class HotAirBalloon : MonoBehaviour
     void FixedUpdate()
     {
 		force = GetYForce(height);
-		Debug.Log(rb.angularVelocity);
-		float xCorrection = AngularCorrection(rb.angularVelocity.x);
-		float zCorrection = AngularCorrection(rb.angularVelocity.z);
-		Debug.Log(new Vector3(xCorrection, 0f, zCorrection));
-		rb.AddTorque(new Vector3(xCorrection, 0f, zCorrection));
+		Vector3 predictedUp = Quaternion.AngleAxis(
+		rb.angularVelocity.magnitude * Mathf.Rad2Deg * stability / speed,
+		rb.angularVelocity) * transform.forward;
+		Debug.DrawLine(transform.position, transform.position + (predictedUp * 1000f), Color.black);
+		Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
+		rb.AddTorque(torqueVector * speed * speed, ForceMode.VelocityChange);
+		Debug.Log(BalloonTemperature);
+		Debug.DrawLine(transform.position, transform.position + (torqueVector * 1000f));
 		rb.AddForce(force);
 
 		if (isBurnerOn)
 		{
-			BurnerOn();
+			if (FuelInUse.Fuel > 0f)
+			{
+				BurnerOn();
+				FuelInUse.Fuel -= 0.01f * Time.fixedDeltaTime;
+				Debug.Log(FuelInUse.Fuel);
+				AtmosphereManager.pollution += 1f;
+			}
 		}
 		if (isReleaseOn)
 		{

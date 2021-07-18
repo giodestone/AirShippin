@@ -7,14 +7,22 @@ public class AirshipCockpit : MonoBehaviour
     Burner burner;
     Release release;
 	Propeller propeller;
+    Rudder rudder;
+
+    AirshipFuelCanisterItemHolder FuelInUse;
 
     private float throttle;
+    private float steering;
 
 	void Start()
     {
         burner = GetComponent<Burner>();
         release = GetComponent<Release>();
 		propeller = GameObject.FindObjectOfType<Propeller>();
+        rudder = GameObject.FindObjectOfType<Rudder>();
+        FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
+        throttle = 0f;
+        steering = 0f;
 	}
 
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
@@ -52,6 +60,9 @@ public class AirshipCockpit : MonoBehaviour
     {
         // TODO
         // Debug.Log("Steering: " + newValue);
+        steering += newValue;
+        steering = Mathf.Clamp(steering, -1f, 1f);
+        rudder.steeringValue = steering;
 
     }
 
@@ -59,8 +70,13 @@ public class AirshipCockpit : MonoBehaviour
     {
         // TODO
         // Debug.Log("Throttle: " + newValue);
-        throttle += newValue;
-        throttle = Mathf.Clamp01(throttle);
-        propeller.ThrottleValue = throttle;
+        float fuel = FuelInUse.Fuel;
+        if (fuel > 0f)
+        {
+            throttle += newValue * Mathf.Log10(fuel * 10f + 1f);
+            FuelInUse.Fuel -= 0.01f * Time.fixedDeltaTime;
+            throttle = Mathf.Clamp(throttle, -0.15f, 1f);
+            propeller.ThrottleValue = throttle;
+        }
 	}
 }

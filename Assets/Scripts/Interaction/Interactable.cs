@@ -46,11 +46,20 @@ public class Interactable : MonoBehaviour
         InteractableDatabase.RegisterInteractable(this);
     }
 
-    void OnDestory()
+    void OnDestroy()
     {
         InteractableDatabase.UnregiserInteractable(this);
+        Debug.Log("parent");
+        OnDestoryOverridable();
     }
 
+    /// <summary>
+    /// Override this if you wanna add functionality for destorying becuase OnDestroy only is called by the derived class!
+    /// </summary>    
+    protected virtual void OnDestoryOverridable()
+    {
+
+    }
 
     /// <summary>
     /// Instruct that an interaction has begin (player has clicked on it).

@@ -22,11 +22,23 @@ public class AirshipFuelCanisterItemHolder : ItemHolder
             }
             return 0f;
         }
+        set
+        {
+            if (IsHolderFull)
+            {
+                if (currentInteractableFuelCansiter != null)
+                {
+                    currentInteractableFuelCansiter.Fuel = value;
+                }
+            }
+        }
     }
 
     public override void PutItemIn(GameObject item)
     {
-        currentInteractableFuelCansiter = item.GetComponentInChildren<FuelCanisterItemInteractable>();
+        currentInteractableFuelCansiter = item.GetComponent<FuelCanisterItemInteractable>();
+        if (currentInteractableFuelCansiter == null)
+            currentInteractableFuelCansiter = item.GetComponentInChildren<FuelCanisterItemInteractable>();
         
         base.PutItemIn(item);
     }
