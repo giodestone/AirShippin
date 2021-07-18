@@ -7,6 +7,8 @@ public class ParcelHub : MonoBehaviour
 {
     [SerializeField] new string name;
     [SerializeField] ParcelDispenser itemSpawner;
+    [SerializeField] ParcelDeliveryPlatform parcelDeliveryPlatform;
+    [SerializeField] FireworkController fireworkController;
 
     [SerializeField] TextMeshProUGUI parcelHubNameText;
     [SerializeField] TextMeshProUGUI currentJobText;
@@ -67,6 +69,13 @@ public class ParcelHub : MonoBehaviour
                 goto case JobState.NoJob;
 
             case JobState.SubmitJob:
+                var parcelsOnPlatform = parcelDeliveryPlatform.ParcelsOnPlatfom;
+                if (parcelsOnPlatform.Count > 0)
+                    fireworkController.RunFirework();
+
+                AtmosphereManager.ParcelsDelivered((float)parcelsOnPlatform.Count);
+                goto case JobState.NoJob;
+            
             case JobState.NoJob:
                 currentJobText.text = preJobAppend + "No current job.";
                 break;
