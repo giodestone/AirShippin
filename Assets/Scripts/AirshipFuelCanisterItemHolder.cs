@@ -22,6 +22,16 @@ public class AirshipFuelCanisterItemHolder : ItemHolder
             }
             return 0f;
         }
+        set
+        {
+            if (IsHolderFull)
+            {
+                if (currentInteractableFuelCansiter != null)
+                {
+                    currentInteractableFuelCansiter.Fuel = value;
+                }
+            }
+        }
     }
 
     public override void PutItemIn(GameObject item)
