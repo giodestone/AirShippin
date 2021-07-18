@@ -74,7 +74,7 @@ public class AirshipCockpit : MonoBehaviour
         if (fuel > 0f)
         {
             throttle += newValue * Mathf.Log10(fuel * 10f + 1f);
-            FuelInUse.Fuel -= 0.01f;
+            FuelInUse.Fuel -= 0.01f * Time.fixedDeltaTime;
             throttle = Mathf.Clamp(throttle, -0.15f, 1f);
             propeller.ThrottleValue = throttle;
         }

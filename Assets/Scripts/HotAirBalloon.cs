@@ -10,6 +10,7 @@ public class HotAirBalloon : MonoBehaviour
 	private float BalloonPressure;
 	private float MediumTemperature;
 	private float BalloonVolume;
+	private AirshipFuelCanisterItemHolder FuelInUse;
 
 	public bool isBurnerOn = false;
 	public bool isReleaseOn = false;
@@ -37,6 +38,7 @@ public class HotAirBalloon : MonoBehaviour
 		BalloonVolume = 26673f;
 		stability = 0.3f;
 		speed = 2.0f;
+		FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
 }
 
 	// Update is called once per frame
@@ -57,14 +59,19 @@ public class HotAirBalloon : MonoBehaviour
 		Debug.DrawLine(transform.position, transform.position + (predictedUp * 1000f), Color.black);
 		Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
 		rb.AddTorque(torqueVector * speed * speed, ForceMode.VelocityChange);
-		Debug.Log(torqueVector);
+		Debug.Log(BalloonTemperature);
 		Debug.DrawLine(transform.position, transform.position + (torqueVector * 1000f));
 		rb.AddForce(force);
 
 		if (isBurnerOn)
 		{
-			BurnerOn();
-			AtmosphereManager.pollution += 1f;
+			if (FuelInUse.Fuel > 0f)
+			{
+				BurnerOn();
+				FuelInUse.Fuel -= 0.01f * Time.fixedDeltaTime;
+				Debug.Log(FuelInUse.Fuel);
+				AtmosphereManager.pollution += 1f;
+			}
 		}
 		if (isReleaseOn)
 		{
