@@ -28,7 +28,7 @@ public class Propeller : MonoBehaviour
         {
             AppliedThrust = AppliedPower / (velocity);
         }
-        TotalThrust = new Vector3(0f, 0f, AppliedThrust);
-        rb.AddRelativeForce(TotalThrust);
+        TotalThrust = rb.transform.forward * AppliedThrust;
+        rb.AddForce(TotalThrust);
     }
 }

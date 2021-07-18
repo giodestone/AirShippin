@@ -48,10 +48,18 @@ public class HotAirBalloon : MonoBehaviour
     {
 		force = GetYForce(height);
 		Debug.Log(rb.angularVelocity);
-		float xCorrection = AngularCorrection(rb.angularVelocity.x);
-		float zCorrection = AngularCorrection(rb.angularVelocity.z);
-		Debug.Log(new Vector3(xCorrection, 0f, zCorrection));
-		rb.AddTorque(new Vector3(xCorrection, 0f, zCorrection));
+		Quaternion deltaQuat = Quaternion.FromToRotation(Quaternion.Euler(90f,0f,0f) * rb.transform.up, Vector3.up);
+
+		Vector3 axis;
+		float angle;
+
+		deltaQuat.ToAngleAxis(out angle, out axis);
+
+		float dampenFactor = 0.8f; // this value requires tuning
+		rb.AddTorque(-rb.angularVelocity * dampenFactor, ForceMode.Acceleration);
+
+		float adjustFactor = 0.5f; // this value requires tuning
+		rb.AddTorque(axis.normalized * angle * adjustFactor, ForceMode.Acceleration);
 		rb.AddForce(force);
 
 		if (isBurnerOn)
