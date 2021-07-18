@@ -68,7 +68,7 @@ public class AirshipCockpit : MonoBehaviour
         // TODO
         // Debug.Log("Throttle: " + newValue);
         throttle += newValue;
-        throttle = Mathf.Clamp01(throttle);
+        throttle = Mathf.Clamp(throttle, -0.15f, 1f);
         propeller.ThrottleValue = throttle;
 	}
 }
