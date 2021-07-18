@@ -47,7 +47,7 @@ public class AirShip : MonoBehaviour
 	Vector3 GetWindForce(GameObject Point)
 	{
 		Vector3 windSpeed = windManager.GetWind(Point.transform.position);
-		float Area = 0.5f * Mathf.PI * 40f * 40f;
+		float Area = 0.5f * Mathf.PI * 25f * 25f;
 		float airDensity = AtmosphereManager.GetAmbientDensity(transform.position.y);
 		Vector3 Force = Area * airDensity * windSpeed;
 		return Force;
