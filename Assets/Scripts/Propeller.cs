@@ -8,6 +8,7 @@ public class Propeller : MonoBehaviour
 
     private float Power = 150000f;
     private float AppliedThrust;
+    AirshipFuelCanisterItemHolder FuelInUse;
     public float ThrottleValue { get; set; }
 
     [SerializeField] GameObject Envelope;
@@ -20,6 +21,7 @@ public class Propeller : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         ThrottleValue = 0f;
         Envelope = GameObject.Find("Envelope");
+        FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,14 @@ public class Propeller : MonoBehaviour
         {
             AppliedThrust = AppliedPower / (velocity);
             AtmosphereManager.pollution += 1f * ThrottleValue;
+        }
+        if (ThrottleValue > 0f)
+        {
+            FuelInUse.Fuel -= ThrottleValue * 0.1f * Time.fixedDeltaTime;
+        }
+        else if (ThrottleValue < 0f)
+        {
+            FuelInUse.Fuel += ThrottleValue * 0.01f * Time.fixedDeltaTime;
         }
         TotalThrust = -1*Envelope.transform.up * AppliedThrust;
         Debug.DrawLine(transform.position, transform.position + (-1*  Envelope.transform.up * 100f));
