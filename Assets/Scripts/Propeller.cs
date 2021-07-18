@@ -32,7 +32,6 @@ public class Propeller : MonoBehaviour
             AppliedThrust = AppliedPower / (velocity);
         }
         TotalThrust = FanPoint.transform.forward * AppliedThrust;
-        Debug.DrawLine(FanPoint.transform.position, FanPoint.transform.position + (FanPoint.transform.forward) * 100f, Color.red);
         rb.AddForce(TotalThrust);
     }
 }

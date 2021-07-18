@@ -55,11 +55,15 @@ public class HotAirBalloon : MonoBehaviour
 
 		deltaQuat.ToAngleAxis(out angle, out axis);
 
-		float dampenFactor = 0.8f; // this value requires tuning
+		float dampenFactor = 0.01f; // this value requires tuning
 		rb.AddTorque(-rb.angularVelocity * dampenFactor, ForceMode.Acceleration);
+		Debug.Log(-rb.angularVelocity * dampenFactor);
 
-		float adjustFactor = 0.5f; // this value requires tuning
+		Debug.DrawLine(rb.transform.position, rb.transform.position + (rb.transform.right * 100f));
+
+		float adjustFactor = 0.005f; // this value requires tuning
 		rb.AddTorque(axis.normalized * angle * adjustFactor, ForceMode.Acceleration);
+		Debug.Log(axis.normalized * angle * adjustFactor);
 		rb.AddForce(force);
 
 		if (isBurnerOn)
