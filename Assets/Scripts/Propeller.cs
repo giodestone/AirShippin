@@ -10,6 +10,8 @@ public class Propeller : MonoBehaviour
     private float AppliedThrust;
     public float ThrottleValue { get; set; }
 
+    [SerializeField] GameObject FanPoint;
+
     private Vector3 TotalThrust;
 
     // Start is called before the first frame update
@@ -17,6 +19,7 @@ public class Propeller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ThrottleValue = 0f;
+        FanPoint = GameObject.Find("FanPoint");
     }
 
     // Update is called once per frame
@@ -28,7 +31,8 @@ public class Propeller : MonoBehaviour
         {
             AppliedThrust = AppliedPower / (velocity);
         }
-        TotalThrust = rb.transform.forward * AppliedThrust;
+        TotalThrust = FanPoint.transform.forward * AppliedThrust;
+        Debug.DrawLine(FanPoint.transform.position, FanPoint.transform.position + (FanPoint.transform.forward) * 100f, Color.red);
         rb.AddForce(TotalThrust);
     }
 }
