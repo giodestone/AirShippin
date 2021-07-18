@@ -45,7 +45,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void FreeStateUpdate(bool onlyConsiderOneClick=false)
     {
-        if (Input.GetButton("Fire1") && !wasFire1Down)
+        if (Input.GetButtonDown("Fire1"))
         {
             if (Physics.Raycast(camera.transform.position, camera.transform.forward, out var hitInfo, playerReach))
             {
@@ -81,20 +81,12 @@ public class PlayerInteraction : MonoBehaviour
                     }
                 }
             }
-
-            wasFire1Down = true;
         }
         else if (currentInteractable != null)
         {
             currentInteractable.InteractEnd();
             previousInteractable = currentInteractable;
             currentInteractable = null;
-            
-            wasFire1Down = false;
-        }
-        else
-        {
-            wasFire1Down = false;
         }
     }
 
