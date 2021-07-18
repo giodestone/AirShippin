@@ -169,6 +169,7 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractable.transform.localPosition = Vector3.zero;
 
         currentInteractable.gameObject.transform.parent = itemAttachmentPoint;
+        currentInteractable.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = false;
         currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
     }
