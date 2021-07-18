@@ -17,19 +17,26 @@ public class GlobalFog : MonoBehaviour
 // Start is called before the first frame update
 void Start()
     {
-        VolumeProfile profile = GetComponent<Volume>().profile;
+        volume = GetComponent<Volume>();
+        VolumeProfile profile = volume.profile;
         if (profile.TryGet<Fog>(out var fog))
         {
             this.fog = fog;
         }
+        this.fog.enabled.overrideState = true;
+        this.fog.enabled.value = true;
+        this.fog.enabled.overrideState = false;
+        this.fog.maximumHeight.overrideState = true;
+        this.fog.maximumHeight.value = 5000f;
+        this.fog.maximumHeight.overrideState = false;
+        this.fog.meanFreePath.overrideState = true;
+        this.fog.meanFreePath.value = 5000f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(AtmosphereManager.pollution);
-        Debug.Log(this.fog.meanFreePath.min);
-        this.fog.meanFreePath.min = maxFreePath - AtmosphereManager.pollution * 10f;
-        this.fog.meanFreePath.min = Mathf.Clamp(this.fog.meanFreePath.min, 0f, float.PositiveInfinity);
+        this.fog.meanFreePath.value = maxFreePath - AtmosphereManager.pollution;
+        this.fog.meanFreePath.value = Mathf.Clamp(this.fog.meanFreePath.value, 1f, float.PositiveInfinity);
     }
 }
