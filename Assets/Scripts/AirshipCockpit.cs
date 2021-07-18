@@ -9,6 +9,8 @@ public class AirshipCockpit : MonoBehaviour
 	Propeller propeller;
     Rudder rudder;
 
+    AirshipFuelCanisterItemHolder FuelInUse;
+
     private float throttle;
     private float steering;
 
@@ -18,6 +20,7 @@ public class AirshipCockpit : MonoBehaviour
         release = GetComponent<Release>();
 		propeller = GameObject.FindObjectOfType<Propeller>();
         rudder = GameObject.FindObjectOfType<Rudder>();
+        FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
         throttle = 0f;
         steering = 0f;
 	}
@@ -67,8 +70,13 @@ public class AirshipCockpit : MonoBehaviour
     {
         // TODO
         // Debug.Log("Throttle: " + newValue);
-        throttle += newValue;
-        throttle = Mathf.Clamp(throttle, -0.15f, 1f);
-        propeller.ThrottleValue = throttle;
+        float fuel = FuelInUse.Fuel;
+        if (fuel > 0f)
+        {
+            throttle += newValue * Mathf.Log10(fuel * 10f + 1f);
+            FuelInUse.Fuel -= 0.01f;
+            throttle = Mathf.Clamp(throttle, -0.15f, 1f);
+            propeller.ThrottleValue = throttle;
+        }
 	}
 }
