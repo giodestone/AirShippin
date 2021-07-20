@@ -195,7 +195,8 @@ public class PlayerInteraction : MonoBehaviour
             currentInteractable.transform.rotation = Quaternion.Euler(hitInfoFeet.normal);
             currentInteractable.transform.parent = hitInfoFeet.transform;
             currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        
+            currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = true;
+            
 
         }
         // Otherwise let physics take the wheel.
@@ -203,6 +204,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             currentInteractable.transform.parent = null;
             currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = false;
         }
 
         currentInteractable = null;
@@ -213,6 +215,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         currentInteractable.transform.parent = null;
         currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = false;
 
         currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = true;
 
