@@ -29,6 +29,10 @@ public class AirShip : MonoBehaviour
 	void Update()
 	{
 		height = transform.position.y;
+		if (rb.velocity.magnitude > 0f)
+		{
+			IsMoving = true;
+		}
 	}
 
     // Update is called once per frame
