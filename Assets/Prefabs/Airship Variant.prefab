@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72912887}
   - component: {fileID: 72912888}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: Cargo Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,8 +42,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.8061333, y: 5.5355115, z: 0.20980766}
-  m_Center: {x: -0.007926941, y: 5.791961, z: -1.666708}
+  m_Size: {x: 3.8061333, y: 5.5355115, z: 0.06010545}
+  m_Center: {x: -0.007926941, y: 5.791984, z: -1.8300992}
 --- !u!1 &289261711
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,7 +2640,7 @@ PrefabInstance:
     - target: {fileID: -3560548273523957184, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 809770a474ca05649bb968463df3c5ce, type: 2}
+      objectReference: {fileID: 2100000, guid: 98422aa5da0921f498c67ba748de38d9, type: 2}
     - target: {fileID: -3466323741860074807, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -2732,7 +2732,7 @@ PrefabInstance:
     - target: {fileID: 4244702427873642593, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 809770a474ca05649bb968463df3c5ce, type: 2}
+      objectReference: {fileID: 2100000, guid: 98422aa5da0921f498c67ba748de38d9, type: 2}
     - target: {fileID: 4332935938758293466, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
