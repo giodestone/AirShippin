@@ -26,7 +26,7 @@ public class AirshipCockpit : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelText;
 
     [SerializeField] Animator throttleAnimator;
-    [SerializeField] Animator steeringAnimator;
+    // [SerializeField] Animator steeringAnimator;
 
 
     private float throttle;
@@ -116,7 +116,7 @@ public class AirshipCockpit : MonoBehaviour
 
     void UpdateSteeringModel()
     {
-        steeringAnimator.Play("Steering", 0, steering);
+        // steeringAnimator.Play("Steering", 0, steering);
         // //-180x left, 0 right
         // var minRotation = Quaternion.Euler(0, 0f, 0f);
         // var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
