@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 1528677035}
   - component: {fileID: 1528677037}
   - component: {fileID: 1528677036}
-  m_Layer: 10
+  m_Layer: 6
   m_Name: ItemHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_Name
-      value: Item Holder
+      value: Item Holder Variant
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_Layer
