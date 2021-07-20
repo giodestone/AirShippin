@@ -34,8 +34,8 @@ public class AirShip : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-		rb.AddForce(-1*GetWindForce(WindPoint1));
-		rb.AddForce(-1*GetWindForce(WindPoint2));
+		//rb.AddForce(-1*GetWindForce(WindPoint1));
+		//rb.AddForce(-1*GetWindForce(WindPoint2));
 		if (IsMoving)
 		{
 			Vector3 Drag = this.GetDrag();
@@ -47,7 +47,7 @@ public class AirShip : MonoBehaviour
 	Vector3 GetWindForce(GameObject Point)
 	{
 		Vector3 windSpeed = windManager.GetWind(Point.transform.position);
-		float Area = 0.5f * Mathf.PI * 25f * 25f;
+		float Area = 0.5f * Mathf.PI * 20f * 20f;
 		float airDensity = AtmosphereManager.GetAmbientDensity(transform.position.y);
 		Vector3 Force = Area * airDensity * windSpeed;
 		return Force;
