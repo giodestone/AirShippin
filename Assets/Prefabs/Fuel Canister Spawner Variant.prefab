@@ -60,6 +60,8 @@ MonoBehaviour:
   itemAttachmentPoint: {fileID: 1563865041}
   itemPrefab: {fileID: 3550464985187217824, guid: 3d8a397e7afecb34a837fc2335b539a4, type: 3}
   counter: {fileID: 634542776}
+  numToSpawn: -1
+  shouldSpawn: 1
 --- !u!1 &634542774
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,15 +227,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.438847
+      value: 58.64
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.983
+      value: 2.0166779
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.546
+      value: 3.7324219
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -245,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_LocalRotation.z
@@ -263,9 +265,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 93284672cfb8a884b982004fa0e13bf7, type: 2}
     - target: {fileID: 919132149155446097, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
       propertyPath: m_Name
-      value: Fuel Canister Spawner
+      value: Fuel Canister Spawner Hub 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 527e126e9e8b473429a44a0e0987f4d1, type: 3}
