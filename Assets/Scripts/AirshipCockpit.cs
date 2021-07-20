@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class AirshipCockpit : MonoBehaviour
@@ -8,11 +9,22 @@ public class AirshipCockpit : MonoBehaviour
     Release release;
 	Propeller propeller;
     Rudder rudder;
+    HotAirBalloon hotAirBalloon;
+
+    JobManager jobManager;
 
     AirshipFuelCanisterItemHolder FuelInUse;
 
     [SerializeField] Transform steeringWheelTransform;
     [SerializeField] Transform throttleTransform;
+
+    [SerializeField] TextMeshProUGUI tempText;
+    [SerializeField] TextMeshProUGUI altText;
+    [SerializeField] TextMeshProUGUI verticalSpeedText;
+    [SerializeField] TextMeshProUGUI curHDGSpeedText;
+    [SerializeField] TextMeshProUGUI destHDGSpeedText;
+    [SerializeField] TextMeshProUGUI fuelText;
+
 
     private float throttle;
     private float steering;
@@ -26,7 +38,9 @@ public class AirshipCockpit : MonoBehaviour
         FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
         throttle = 0f;
         steering = 0f;
-	}
+        hotAirBalloon = FindObjectOfType<HotAirBalloon>();
+        jobManager = FindObjectOfType<JobManager>();
+    }
 
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
     {
@@ -102,5 +116,38 @@ public class AirshipCockpit : MonoBehaviour
         var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
 
         steeringWheelTransform.localRotation = Quaternion.LerpUnclamped(minRotation, maxRotation, steering + 0.5f);
+    }
+
+    void LateUpdate()
+    {
+        UpdateText();
+    }
+
+    float previousAltiude;
+
+    void UpdateText()
+    {
+        tempText.text = "BALLOON TEMP C: " + (hotAirBalloon.BalloonTemp - 273.15f);
+        altText.text = "ALT: " + transform.position.y;
+        verticalSpeedText.text = "V/S: " + ((transform.position.y - previousAltiude) / Time.deltaTime);
+        var dir = transform.forward - Vector3.forward;
+        curHDGSpeedText.text = "HDG: " + Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        var dirToTgt = "HDG->TGT: ";
+        if (jobManager.Destination != null)
+        {
+            var dirtotgtangle = transform.forward - Vector3.forward;
+            dirToTgt += Mathf.Atan2(dirtotgtangle.y, dirtotgtangle.x) * Mathf.Rad2Deg;
+        }
+        else
+        {
+            dirToTgt += " NO TGT";
+        }
+
+        destHDGSpeedText.text = dirToTgt;
+
+        fuelText.text = "FUEL: " + FuelInUse.Fuel;
+
+        previousAltiude = transform.position.y;
     }
 }
