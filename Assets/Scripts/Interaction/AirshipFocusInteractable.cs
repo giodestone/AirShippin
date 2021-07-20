@@ -82,7 +82,7 @@ public class AirshipFocusInteractable : FocusInteractable
 
     void UpdateThrottle()
     {
-        airshipCockpit.UpdateThrottle(Input.GetAxisRaw("Airship Throttle") * steeringSpeedModifier);
+        airshipCockpit.UpdateThrottle(Input.GetAxis("Airship Throttle") * throttleIncreaseSpeedModifier);
     }
 
     void UpdateSteering()
