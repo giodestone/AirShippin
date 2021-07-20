@@ -29,10 +29,6 @@ public class AirShip : MonoBehaviour
 	void Update()
 	{
 		height = transform.position.y;
-		if (rb.velocity.magnitude > 0f)
-		{
-			IsMoving = true;
-		}
 	}
 
     // Update is called once per frame
@@ -40,11 +36,8 @@ public class AirShip : MonoBehaviour
     {
 		//rb.AddForce(-1*GetWindForce(WindPoint1));
 		//rb.AddForce(-1*GetWindForce(WindPoint2));
-		if (IsMoving)
-		{
-			Vector3 Drag = this.GetDrag();
-			rb.AddForce(Drag);
-		}
+		Vector3 Drag = this.GetDrag();
+		rb.AddForce(Drag);
     }
 
 	Vector3 GetWindForce(GameObject Point)
