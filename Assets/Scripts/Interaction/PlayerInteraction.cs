@@ -13,7 +13,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] float throwItemForce = 10;
     [SerializeField] float dontThrowOverAngle = 160; // When will the player be considered to be looking at the ground. Dont throw the item if practically looking at ground.
 
-    const float playerReach = 2f;
+    const float playerReach = 3f;
 
     PlayerInteractionState playerInteractionState;
 
@@ -195,7 +195,8 @@ public class PlayerInteraction : MonoBehaviour
             currentInteractable.transform.rotation = Quaternion.Euler(hitInfoFeet.normal);
             currentInteractable.transform.parent = hitInfoFeet.transform;
             currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        
+            currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = true;
+            
 
         }
         // Otherwise let physics take the wheel.
@@ -203,6 +204,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             currentInteractable.transform.parent = null;
             currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = false;
         }
 
         currentInteractable = null;
@@ -213,6 +215,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         currentInteractable.transform.parent = null;
         currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = false;
 
         currentInteractable.transform.gameObject.GetComponent<Collider>().enabled = true;
 
