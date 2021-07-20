@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableType: 0
+  fuel: 1
 --- !u!1001 &4432844706065861873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,6 +103,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1487407722408865293, guid: d7a2fa444063d964794fb6d5ce57fcc1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 93284672cfb8a884b982004fa0e13bf7, type: 2}
     - target: {fileID: 424700038279989207, guid: d7a2fa444063d964794fb6d5ce57fcc1, type: 3}
       propertyPath: m_Convex
       value: 1
@@ -110,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 545404039292192317, guid: d7a2fa444063d964794fb6d5ce57fcc1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98422aa5da0921f498c67ba748de38d9, type: 2}
     - target: {fileID: 919132149155446097, guid: d7a2fa444063d964794fb6d5ce57fcc1, type: 3}
       propertyPath: m_Name
       value: Fuel Canister Variant
@@ -122,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8362715563385882661, guid: d7a2fa444063d964794fb6d5ce57fcc1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 93284672cfb8a884b982004fa0e13bf7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7a2fa444063d964794fb6d5ce57fcc1, type: 3}
 --- !u!1 &3550464985187217824 stripped

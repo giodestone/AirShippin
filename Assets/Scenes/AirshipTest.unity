@@ -1148,50 +1148,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07dc20055868e5a409a3260964b91e44, type: 3}
---- !u!1 &1632210006
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1632210008}
-  - component: {fileID: 1632210007}
-  m_Layer: 0
-  m_Name: Job Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1632210007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632210006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ab23fc00318e854fb60ebfdc0a194e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parcelHubs: []
---- !u!4 &1632210008
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632210006}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 18
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1745352493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,6 +1541,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11b6fa955da6faa4293732ee73116b4e, type: 3}
+--- !u!1001 &862513658950893790
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000006, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 862513658402000008, guid: a61e904f63974234097943187b8fc849, type: 3}
+      propertyPath: m_Name
+      value: Job Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a61e904f63974234097943187b8fc849, type: 3}
 --- !u!1001 &963203895572181087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1689,22 +1702,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 72912888, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: m_Size.y
-      value: 5.5355115
-      objectReference: {fileID: 0}
-    - target: {fileID: 72912888, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: m_Size.z
-      value: 0.20980766
-      objectReference: {fileID: 0}
-    - target: {fileID: 72912888, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: m_Center.y
-      value: 5.791961
-      objectReference: {fileID: 0}
-    - target: {fileID: 72912888, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
-      propertyPath: m_Center.z
-      value: -1.666708
-      objectReference: {fileID: 0}
     - target: {fileID: 121311220566939572, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
       propertyPath: m_Name
       value: Airship
