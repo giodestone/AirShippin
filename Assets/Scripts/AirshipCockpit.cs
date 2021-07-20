@@ -139,7 +139,7 @@ public class AirshipCockpit : MonoBehaviour
 
         tempText.text = "BALLOON TEMP C: " + (hotAirBalloon.BalloonTemp - 273.15f).ToString("0.0");
         altText.text = "ALT: " + envelope.transform.position.y.ToString("0.00");
-        verticalSpeedText.text = "VS/s: " + verticalSpeedAverage.MovingAverage.ToString("0.0");
+        verticalSpeedText.text = "VS m/s: " + verticalSpeedAverage.MovingAverage.ToString("0.0");
         var dir = envelope.transform.forward - Vector3.forward;
         curHDGSpeedText.text = "HDG: " + (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg).ToString("0");
 
