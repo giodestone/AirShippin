@@ -13,7 +13,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] float throwItemForce = 10;
     [SerializeField] float dontThrowOverAngle = 160; // When will the player be considered to be looking at the ground. Dont throw the item if practically looking at ground.
 
-    const float playerReach = 2f;
+    const float playerReach = 3f;
 
     PlayerInteractionState playerInteractionState;
 
