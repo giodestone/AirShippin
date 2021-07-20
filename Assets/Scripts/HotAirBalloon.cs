@@ -66,7 +66,6 @@ public class HotAirBalloon : MonoBehaviour
 		rb.angularVelocity) * transform.forward;
 		Debug.DrawLine(transform.position, transform.position + (predictedUp * 1000f), Color.black);
 		Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
-		torqueVector.y = 0f;
 		rb.AddTorque(torqueVector * speed * speed, ForceMode.VelocityChange);
 		Debug.Log(torqueVector);
 		Debug.DrawLine(transform.position, transform.position + (torqueVector * 1000f));

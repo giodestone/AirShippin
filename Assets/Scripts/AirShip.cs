@@ -56,7 +56,7 @@ public class AirShip : MonoBehaviour
 		float VelY = Velocity.y;
 		float VelZ = Velocity.z;
 		/*Assume Sphere for time being (assume beetle aerodynamics)*/
-		float Area = Mathf.PI * 80f * 80f;
+		float Area = Mathf.PI * 35f * 35f;
 		float ForceX = GetAirResistance(VelX, 0.38f, height, Area);
 		float ForceY = GetAirResistance(VelY, 0.38f, height, Area);
 		float ForceZ = GetAirResistance(VelZ, 0.38f, height, Area);

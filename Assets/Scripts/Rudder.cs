@@ -8,21 +8,23 @@ public class Rudder : MonoBehaviour
     public float steeringValue { get; set; }
 
     public Rigidbody rb;
+    private Rigidbody envelope;
 
     // Start is called before the first frame update
     void Start()
     {
         steeringValue = 0f;
         rb = GetComponent<Rigidbody>();
+        envelope = GameObject.Find("Envelope").GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         float velocity = Vector3.Dot(rb.velocity, -1f * transform.up.normalized);
-        float turningForce = velocity * steeringValue;
+        float turningForce = velocity * steeringValue * 5000f;
         Debug.Log(turningForce);
         Debug.DrawLine(transform.position, transform.position + (transform.forward * 1000f));
-        rb.AddTorque(transform.forward * turningForce, ForceMode.VelocityChange);
+        envelope.AddTorque(transform.forward * turningForce);
     }
 }
