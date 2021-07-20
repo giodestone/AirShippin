@@ -25,6 +25,9 @@ public class AirshipCockpit : MonoBehaviour
     [SerializeField] TextMeshProUGUI destHDGSpeedText;
     [SerializeField] TextMeshProUGUI fuelText;
 
+    [SerializeField] Animator throttleAnimator;
+    [SerializeField] Animator steeringAnimator;
+
 
     private float throttle;
     private float steering;
@@ -102,20 +105,23 @@ public class AirshipCockpit : MonoBehaviour
 
     void UpdateThrottleModel()
     {
-        // -15 x max    -160x min
-        var minRotation = Quaternion.Euler(-15f, 0f, 0f);
-        var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
+        throttleAnimator.Play("Throttle", 0, throttle);
 
-        throttleTransform.localRotation = Quaternion.Lerp(minRotation, maxRotation, throttle);
+        // // -15 x max    -160x min
+        // var minRotation = Quaternion.Euler(-15f, 0f, 0f);
+        // var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
+
+        // throttleTransform.localRotation = Quaternion.Lerp(minRotation, maxRotation, throttle);
     }
 
     void UpdateSteeringModel()
     {
-        //-180x left, 0 right
-        var minRotation = Quaternion.Euler(0, 0f, 0f);
-        var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
+        steeringAnimator.Play("Steering", 0, steering);
+        // //-180x left, 0 right
+        // var minRotation = Quaternion.Euler(0, 0f, 0f);
+        // var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
 
-        steeringWheelTransform.localRotation = Quaternion.LerpUnclamped(minRotation, maxRotation, steering + 0.5f);
+        // steeringWheelTransform.localRotation = Quaternion.LerpUnclamped(minRotation, maxRotation, steering + 0.5f);
     }
 
     void LateUpdate()
