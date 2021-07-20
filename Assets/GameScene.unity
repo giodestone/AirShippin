@@ -1070,10 +1070,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2079716205}
     m_Modifications:
-    - target: {fileID: 2098671028, guid: 07dc20055868e5a409a3260964b91e44, type: 3}
-      propertyPath: LightsModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8087025868363942772, guid: 07dc20055868e5a409a3260964b91e44, type: 3}
       propertyPath: m_RootOrder
       value: 3
