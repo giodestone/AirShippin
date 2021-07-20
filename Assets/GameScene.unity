@@ -2224,6 +2224,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8087025868363942772, guid: 07dc20055868e5a409a3260964b91e44, type: 3}
   m_PrefabInstance: {fileID: 1207428752}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1251309022 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4525654738803360259, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+  m_PrefabInstance: {fileID: 1910644264}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1252742417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2946,6 +2951,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 643555802, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
+      propertyPath: envelope
+      value: 
+      objectReference: {fileID: 1251309022}
     - target: {fileID: 643555802, guid: 0be5b672dffb3a24e8fe234a5b5bb4ec, type: 3}
       propertyPath: steeringAnimator
       value: 
