@@ -14,6 +14,8 @@ public class AirShip : MonoBehaviour
 
 	WindManager windManager;
 
+	private Rigidbody envelope;
+
 	private bool IsMoving = false;
 
     // Start is called before the first frame update
@@ -24,6 +26,7 @@ public class AirShip : MonoBehaviour
 		WindPoint1 = GameObject.Find("WindPoint1");
 		WindPoint2 = GameObject.Find("WindPoint2");
 		windManager = GameObject.FindObjectOfType<WindManager>();
+		envelope = GameObject.Find("Envelope").GetComponent<Rigidbody>();
 	}
 
 	void Update()
@@ -37,7 +40,8 @@ public class AirShip : MonoBehaviour
 		//rb.AddForce(-1*GetWindForce(WindPoint1));
 		//rb.AddForce(-1*GetWindForce(WindPoint2));
 		Vector3 Drag = this.GetDrag();
-		rb.AddForce(Drag);
+		Debug.Log(Drag);
+		envelope.AddForce(Drag);
     }
 
 	Vector3 GetWindForce(GameObject Point)
@@ -68,6 +72,6 @@ public class AirShip : MonoBehaviour
 	{
 		float AmbientDensity = AtmosphereManager.GetAmbientDensity(height);
 		float k = AmbientDensity * DragCoefficient * Area / 2;
-		return (-1) * k * Velocity * Velocity;
+		return (-1) * k * Velocity * Velocity * Mathf.Sign(Velocity);
 	}
 }
