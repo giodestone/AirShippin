@@ -7,6 +7,14 @@ public class HotAirBalloon : MonoBehaviour
 
 	private Rigidbody rb;
 	private float BalloonTemperature;
+
+	/// <summary>
+	/// in kelvin
+	/// </summary>
+	/// <value></value>
+	public float BalloonTemp {
+        get => BalloonTemperature;
+    }
 	private float BalloonPressure;
 	private float MediumTemperature;
 	private float BalloonVolume;
