@@ -79,14 +79,14 @@ public class FocusInteractable : Interactable
 
     void FixPlayerInPlace()
     {
-        var playerGO = playerInteraction.gameObject;
-        createdJoint = playerGO.AddComponent<FixedJoint>();
-        createdJoint.connectedBody = rigidBodyToFixItemTo;
+        // var playerGO = playerInteraction.gameObject;
+        // createdJoint = playerGO.AddComponent<FixedJoint>();
+        // createdJoint.connectedBody = rigidBodyToFixItemTo;
     }
 
     void UnfixPlayer()
     {
-        Destroy(createdJoint);
-        createdJoint = null;
+        // Destroy(createdJoint);
+        // createdJoint = null;
     }
 }

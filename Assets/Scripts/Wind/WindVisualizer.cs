@@ -10,8 +10,8 @@ public class WindVisualizer : MonoBehaviour
     GameObject player;
     const string playerTag = "Player";
 
-    const int maxNumTrails = 60;
-    const float trailSpawningRadius = 300f;
+    const int maxNumTrails = 100;
+    const float trailSpawningRadius = 200f;
     const float minTimeBeforeSpawingTrail = 0.25f;
     const float maxTimeBeforeSpawningTrail = 1.5f;
 

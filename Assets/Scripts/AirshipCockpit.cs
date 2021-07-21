@@ -45,6 +45,10 @@ public class AirshipCockpit : MonoBehaviour
         verticalSpeedAverage = gameObject.AddComponent<AverageValues>();
     }
 
+    void Update()
+    {
+    }
+
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
     {
         // TODO
@@ -76,29 +80,22 @@ public class AirshipCockpit : MonoBehaviour
         }
     }
 
-    public void UpdateSteering(float newValue)
+    public void UpdateSteering(float incrementValue)
     {
-        // TODO
-        // Debug.Log("Steering: " + newValue);
-        steering += newValue;
+        steering += incrementValue;
         steering = Mathf.Clamp(steering, -1f, 1f);
+
         rudder.steeringValue = steering;
-
+        
         UpdateSteeringModel();
-
     }
 
-    public void UpdateThrottle(float newValue)
+    public void UpdateThrottle(float incrementValue)
     {
-        // TODO
-        // Debug.Log("Throttle: " + newValue);
-        float fuel = FuelInUse.Fuel;
-        if (fuel > 0f)
-        {
-            throttle += newValue * Mathf.Log10(fuel * 10f + 1f);
-            throttle = Mathf.Clamp(throttle, -0.15f, 1f);
-            propeller.ThrottleValue = throttle;
-        }
+        throttle += incrementValue;
+        throttle = Mathf.Clamp(throttle, -0.2f, 1f);
+
+        propeller.ThrottleValue = throttle;
 
         UpdateThrottleModel();
     }
@@ -128,6 +125,8 @@ public class AirshipCockpit : MonoBehaviour
     {
         UpdateText();
     }
+
+
 
     float previousAltiude;
 
