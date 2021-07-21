@@ -45,7 +45,7 @@ public class HotAirBalloon : MonoBehaviour
 		height = 1f;
 		BalloonVolume = 26673f;
 		stability = 0.3f;
-		speed = 2.0f;
+		speed = 1.0f;
 		FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
 }
 
