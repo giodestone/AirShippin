@@ -64,15 +64,10 @@ public class HotAirBalloon : MonoBehaviour
 		Vector3 predictedUp = Quaternion.AngleAxis(
 		rb.angularVelocity.magnitude * Mathf.Rad2Deg * stability / speed,
 		rb.angularVelocity) * transform.forward;
-		Debug.DrawLine(transform.position, transform.position + (predictedUp * 1000f), Color.black);
 		Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
 		torqueVector.y = 0f;
 		rb.AddTorque(torqueVector * speed * speed, ForceMode.VelocityChange);
-		Debug.Log(torqueVector);
-		Debug.DrawLine(transform.position, transform.position + (torqueVector * 1000f));
 		rb.AddForce(force);
-
-		Debug.Log(FuelInUse.Fuel);
 
 		if (isBurnerOn)
 		{
@@ -88,11 +83,6 @@ public class HotAirBalloon : MonoBehaviour
 			ReleaseOn();
 		}
     }
-
-	private float AngularCorrection(float rotationalVel)
-	{
-		return -1 * rotationalVel * rb.inertiaTensor.magnitude;
-	}
 
 	void BurnerOn()
 	{
@@ -134,7 +124,14 @@ public class HotAirBalloon : MonoBehaviour
 	{
 		float AmbientDensity = AtmosphereManager.GetAmbientDensity(height);
 		float BalloonDensity = GetBalloonDensity();
-		return new Vector3(0f, (AmbientDensity - BalloonDensity) * BalloonVolume * 9.80665f, 0f);
+		if (BalloonDensity > AmbientDensity)
+		{
+			return new Vector3(0f, 0f, 0f);
+		}
+		else
+		{
+			return new Vector3(0f, (AmbientDensity - BalloonDensity) * BalloonVolume * 9.80665f, 0f);
+		}
 	}
 
 	float GetBalloonDensity()

@@ -36,7 +36,7 @@ public class Propeller : MonoBehaviour
         }
         if (ThrottleValue > 0f)
         {
-            FuelInUse.Fuel -= ThrottleValue * 0.1f * Time.fixedDeltaTime;
+            FuelInUse.Fuel -= ThrottleValue * 0.01f * Time.fixedDeltaTime;
         }
         else if (ThrottleValue < 0f)
         {
