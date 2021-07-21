@@ -53,7 +53,6 @@ public class HotAirBalloon : MonoBehaviour
 	void Update()
 	{
 		AmbientTemperature = AtmosphereManager.GetAmbientTemperature(height);
-		Debug.Log(AtmosphereManager.GetAmbientTemperature(0));
 		AmbientPressure = AtmosphereManager.GetAmbientPressure(height, AmbientTemperature);
 		PassiveLoss();
 		height = transform.position.y;

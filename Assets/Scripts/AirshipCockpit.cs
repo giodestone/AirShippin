@@ -96,7 +96,7 @@ public class AirshipCockpit : MonoBehaviour
     public void UpdateThrottle(float incrementValue)
     {
         throttle += incrementValue;
-        throttle = Mathf.Clamp(throttle, 0f, 1f);
+        throttle = Mathf.Clamp(throttle, -0.2f, 1f);
 
         propeller.ThrottleValue = throttle;
 
@@ -140,15 +140,20 @@ public class AirshipCockpit : MonoBehaviour
         tempText.text = "BALLOON TEMP C: " + (hotAirBalloon.BalloonTemp - 273.15f).ToString("0.0");
         altText.text = "ALT: " + envelope.position.y.ToString("0.00 M");
         verticalSpeedText.text = "VS: " + verticalSpeedAverage.MovingAverage.ToString("0.00 M/S");
-        var dir = envelope.transform.forward - Vector3.forward;
-        curHDGSpeedText.text = "HDG: " + (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg).ToString("0");
+        var dir = Vector3.Dot(Vector3.forward, -1 * envelope.transform.up);
+        //Debug.DrawLine(envelope.transform.position, envelope.transform.position + (dir * 1000f));
+        Debug.DrawLine(envelope.transform.position, envelope.transform.position + (envelope.transform.up * 1000f), Color.black);
+        Debug.DrawLine(envelope.transform.position, envelope.transform.position + (Vector3.forward * 10000f), Color.green);
+        curHDGSpeedText.text = "HDG: " + ((Mathf.Acos(dir) * Mathf.Rad2Deg)).ToString("0");
+        Debug.Log(Mathf.Acos(dir));
 
         var dirToTgt = "HDG->TGT: ";
         if (jobManager.Destination != null)
         {
             var envToDest = jobManager.Destination.transform.position - envelope.transform.position;
-            var dirtotgtangle = envelope.transform.forward - envToDest.normalized;
-            dirToTgt += (Mathf.Atan2(dirtotgtangle.y, dirtotgtangle.x) * Mathf.Rad2Deg).ToString("0");
+            var dirtotgtangle = Vector3.Dot(Vector3.forward, envToDest.normalized);
+            //Debug.DrawLine(envelope.position, envelope.position + (envToDest*1000f), Color.red);
+            dirToTgt += (Mathf.Acos(dirtotgtangle) * Mathf.Rad2Deg).ToString("0");
         }
         else
         {
