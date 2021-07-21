@@ -43,6 +43,9 @@ public class AirshipCockpit : MonoBehaviour
         hotAirBalloon = FindObjectOfType<HotAirBalloon>();
         jobManager = FindObjectOfType<JobManager>();
         verticalSpeedAverage = gameObject.AddComponent<AverageValues>();
+
+        UpdateSteeringModel();
+        UpdateThrottleModel();
     }
 
     void Update()
