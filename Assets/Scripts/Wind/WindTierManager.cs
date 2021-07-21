@@ -6,7 +6,7 @@ public class WindTierManager : MonoBehaviour
 {
     const int numWindTiers = 6;
     const float windTeirAltitudeIncrement = 200f;
-    const float windTierAltitudeOverlap = 20f; // Around which altitude should the wind from the upper/lower altitude be interpolated.
+    const float windTierAltitudeOverlap = 40f; // Around which altitude should the wind from the upper/lower altitude be interpolated.
 
     List<WindTier> windTiers;
     Dictionary<float, WindTier> windBuckets; // indexed by the start altitude.
