@@ -154,7 +154,7 @@ public class AirshipCockpit : MonoBehaviour
 
         destHDGSpeedText.text = dirToTgt;
 
-        fuelText.text = "FUEL: " + (FuelInUse.Fuel * 100f).ToString("0.0");
+        fuelText.text = "FUEL: " + (FuelInUse.Fuel * 100f).ToString("0.0%");
 
         previousAltiude = envelope.transform.position.y;
     }
