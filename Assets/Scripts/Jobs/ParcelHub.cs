@@ -70,8 +70,17 @@ public class ParcelHub : MonoBehaviour
 
             case JobState.SubmitJob:
                 var parcelsOnPlatform = parcelDeliveryPlatform.ParcelsOnPlatfom;
+                var correctParcels = 0;
+
                 if (parcelsOnPlatform.Count > 0)
-                    fireworkController.RunFirework();
+                {
+                    foreach (var p in parcelsOnPlatform)
+                        if (p.Destination == this)
+                            correctParcels++;
+
+                    if (correctParcels > 0)
+                        fireworkController.RunFirework();
+                }
 
                 AtmosphereManager.ParcelsDelivered((float)parcelsOnPlatform.Count);
                 goto case JobState.NoJob;
