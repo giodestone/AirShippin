@@ -34,14 +34,9 @@ public class Propeller : MonoBehaviour
             AppliedThrust = AppliedPower / (velocity);
             AtmosphereManager.pollution += 1f * ThrottleValue;
         }
-        if (ThrottleValue > 0f)
-        {
-            FuelInUse.Fuel -= ThrottleValue * 0.01f * Time.fixedDeltaTime;
-        }
-        else if (ThrottleValue < 0f)
-        {
-            FuelInUse.Fuel += ThrottleValue * 0.01f * Time.fixedDeltaTime;
-        }
+
+        FuelInUse.Fuel -= Mathf.Abs(ThrottleValue * 0.01f * Time.fixedDeltaTime);
+
         TotalThrust = -1*Envelope.transform.up * AppliedThrust;
         Debug.DrawLine(transform.position, transform.position + (-1*  Envelope.transform.up * 100f));
         rb.AddForce(TotalThrust);

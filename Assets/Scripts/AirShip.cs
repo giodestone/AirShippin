@@ -70,7 +70,7 @@ public class AirShip : MonoBehaviour
 	public static float GetAirResistance(float Velocity, float DragCoefficient, float height, float Area)
 	{
 		float AmbientDensity = AtmosphereManager.GetAmbientDensity(height);
-		float k = AmbientDensity * DragCoefficient * Area / 2;
+		float k = AmbientDensity * DragCoefficient * Area / 2f;
 		return (-1) * k * Velocity * Velocity * Mathf.Sign(Velocity);
 	}
 }

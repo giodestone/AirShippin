@@ -8,8 +8,8 @@ using UnityEngine;
 public class AirshipFocusInteractable : FocusInteractable
 {
     const float clickReach = 5f;
-    const float throttleIncreaseSpeedModifier = 0.002f;
-    const float steeringSpeedModifier = 0.002f;
+    const float throttleIncreaseSpeedModifier = 0.1f;
+    const float steeringSpeedModifier = 0.1f;
 
     bool isFocused = false;
 

@@ -6,6 +6,7 @@ public class FocusInteractable : Interactable
 
     Camera mainCamera;
     [SerializeField] Camera focusCamera; // Camera which will be enabled after focusing.
+    [SerializeField] Rigidbody rigidBodyToFixItemTo;
 
     /// <summary>
     /// Get the camera which is used when it is focused.
@@ -16,6 +17,9 @@ public class FocusInteractable : Interactable
     Vector3 playerPosFromObjectOnInteract;
 
     PlayerInteraction playerInteraction;
+
+    FixedJoint createdJoint;
+
 
     void Awake()
     {
@@ -37,7 +41,7 @@ public class FocusInteractable : Interactable
 
         SetPlayerControlState(false);
         SetFirstPersonLookEnabledState(true);
-        CalculatePlayerPosOnInteract();
+        FixPlayerInPlace();
     }
 
     public override void InteractEnd()
@@ -47,7 +51,7 @@ public class FocusInteractable : Interactable
         focusCamera.enabled = false;
         mainCamera.enabled = true;
 
-        RestorePlayerPos();
+        UnfixPlayer();
         SetFirstPersonLookEnabledState(false);
         SetPlayerControlState(true);
     }
@@ -73,17 +77,17 @@ public class FocusInteractable : Interactable
             component.enabled = state;
     }
 
-    void CalculatePlayerPosOnInteract()
+    void FixPlayerInPlace()
     {
         var playerGO = playerInteraction.gameObject;
-
-        playerPosFromObjectOnInteract = playerGO.transform.position - this.transform.position;
+        playerGO.transform.position = new Vector3(playerGO.transform.position.x, playerGO.transform.position.y + 0.1f, playerGO.transform.position.z);
+        createdJoint = playerGO.AddComponent<FixedJoint>();
+        createdJoint.connectedBody = rigidBodyToFixItemTo;
     }
 
-    void RestorePlayerPos()
+    void UnfixPlayer()
     {
-        var playerGO = playerInteraction.gameObject;
-
-        playerGO.transform.position = this.transform.position + playerPosFromObjectOnInteract;
+        Destroy(createdJoint);
+        createdJoint = null;
     }
 }
