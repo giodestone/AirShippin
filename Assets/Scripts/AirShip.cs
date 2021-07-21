@@ -37,17 +37,16 @@ public class AirShip : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-		//rb.AddForce(-1*GetWindForce(WindPoint1));
-		//rb.AddForce(-1*GetWindForce(WindPoint2));
+		rb.AddForce(GetWindForce(WindPoint1));
+		rb.AddForce(GetWindForce(WindPoint2));
 		Vector3 Drag = this.GetDrag();
-		Debug.Log(Drag);
 		envelope.AddForce(Drag);
     }
 
 	Vector3 GetWindForce(GameObject Point)
 	{
 		Vector3 windSpeed = windManager.GetWind(Point.transform.position);
-		float Area = 0.5f * Mathf.PI * 20f * 20f;
+		float Area = 0.5f * Mathf.PI * 45f * 45f;
 		float airDensity = AtmosphereManager.GetAmbientDensity(transform.position.y);
 		Vector3 Force = Area * airDensity * windSpeed;
 		return Force;
@@ -60,7 +59,7 @@ public class AirShip : MonoBehaviour
 		float VelY = Velocity.y;
 		float VelZ = Velocity.z;
 		/*Assume Sphere for time being (assume beetle aerodynamics)*/
-		float Area = Mathf.PI * 35f * 35f;
+		float Area = Mathf.PI * 45f * 45f;
 		float ForceX = GetAirResistance(VelX, 0.38f, height, Area);
 		float ForceY = GetAirResistance(VelY, 0.38f, height, Area);
 		float ForceZ = GetAirResistance(VelZ, 0.38f, height, Area);
