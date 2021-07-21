@@ -6,7 +6,7 @@ public class Propeller : MonoBehaviour
 {
     public Rigidbody rb;
 
-    private float maxThrust = 2200f;
+    private float maxThrust = 6000f;
     private float velocityScaleConst = 100f;
     private float AppliedThrust;
     AirshipFuelCanisterItemHolder FuelInUse;
