@@ -15,8 +15,9 @@ public class AirshipCockpit : MonoBehaviour
 
     AirshipFuelCanisterItemHolder FuelInUse;
 
-    [SerializeField] Transform steeringWheelTransform;
-    [SerializeField] Transform throttleTransform;
+    [SerializeField] Transform envelope;
+
+    AverageValues verticalSpeedAverage;
 
     [SerializeField] TextMeshProUGUI tempText;
     [SerializeField] TextMeshProUGUI altText;
@@ -26,7 +27,7 @@ public class AirshipCockpit : MonoBehaviour
     [SerializeField] TextMeshProUGUI fuelText;
 
     [SerializeField] Animator throttleAnimator;
-    [SerializeField] Animator steeringAnimator;
+    // [SerializeField] Animator steeringAnimator;
 
 
     private float throttle;
@@ -43,6 +44,7 @@ public class AirshipCockpit : MonoBehaviour
         steering = 0f;
         hotAirBalloon = FindObjectOfType<HotAirBalloon>();
         jobManager = FindObjectOfType<JobManager>();
+        verticalSpeedAverage = gameObject.AddComponent<AverageValues>();
     }
 
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
@@ -116,7 +118,7 @@ public class AirshipCockpit : MonoBehaviour
 
     void UpdateSteeringModel()
     {
-        steeringAnimator.Play("Steering", 0, steering);
+        // steeringAnimator.Play("Steering", 0, steering);
         // //-180x left, 0 right
         // var minRotation = Quaternion.Euler(0, 0f, 0f);
         // var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
@@ -129,31 +131,34 @@ public class AirshipCockpit : MonoBehaviour
         UpdateText();
     }
 
-    float previousAltiude;
+    float prevAltitude;
 
     void UpdateText()
     {
-        tempText.text = "BALLOON TEMP C: " + (hotAirBalloon.BalloonTemp - 273.15f);
-        altText.text = "ALT: " + transform.position.y;
-        verticalSpeedText.text = "V/S: " + ((transform.position.y - previousAltiude) / Time.deltaTime);
-        var dir = transform.forward - Vector3.forward;
-        curHDGSpeedText.text = "HDG: " + Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        verticalSpeedAverage.NewValue = (envelope.transform.position.y - prevAltitude) / Time.deltaTime;
+
+        tempText.text = "BALLOON TEMP C: " + (hotAirBalloon.BalloonTemp - 273.15f).ToString("0.0");
+        altText.text = "ALT: " + envelope.transform.position.y.ToString("0.00");
+        verticalSpeedText.text = "VS m/s: " + verticalSpeedAverage.MovingAverage.ToString("0.0");
+        var dir = envelope.transform.forward - Vector3.forward;
+        curHDGSpeedText.text = "HDG: " + (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg).ToString("0");
 
         var dirToTgt = "HDG->TGT: ";
         if (jobManager.Destination != null)
         {
-            var dirtotgtangle = transform.forward - Vector3.forward;
-            dirToTgt += Mathf.Atan2(dirtotgtangle.y, dirtotgtangle.x) * Mathf.Rad2Deg;
+            var envToDest = jobManager.Destination.transform.position - envelope.transform.position;
+            var dirtotgtangle = envelope.transform.forward - envToDest.normalized;
+            dirToTgt += (Mathf.Atan2(dirtotgtangle.y, dirtotgtangle.x) * Mathf.Rad2Deg).ToString("0");
         }
         else
         {
             dirToTgt += " NO TGT";
         }
 
-        destHDGSpeedText.text = dirToTgt;
+        destHDGSpeedText.text = dirToTgt.ToString();
 
-        fuelText.text = "FUEL: " + FuelInUse.Fuel;
+        fuelText.text = "FUEL: " + (FuelInUse.Fuel * 100f).ToString("0.0");
 
-        previousAltiude = transform.position.y;
+        prevAltitude = envelope.transform.position.y;
     }
 }
