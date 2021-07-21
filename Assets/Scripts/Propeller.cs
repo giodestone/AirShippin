@@ -6,10 +6,12 @@ public class Propeller : MonoBehaviour
 {
     public Rigidbody rb;
 
-    private float Power = 150000f;
+    private float maxThrust = 6000f;
+    private float velocityScaleConst = 100f;
     private float AppliedThrust;
     AirshipFuelCanisterItemHolder FuelInUse;
     public float ThrottleValue { get; set; }
+
 
     [SerializeField] GameObject Envelope;
 
@@ -27,18 +29,20 @@ public class Propeller : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float velocity = Vector3.Dot(rb.velocity, -1*Envelope.transform.up.normalized);
-        float AppliedPower = Power * ThrottleValue;
-        if (velocity > 0f)
-        {
-            AppliedThrust = AppliedPower / (velocity);
-            AtmosphereManager.pollution += 1f * ThrottleValue;
+        if (FuelInUse.Fuel <= 0.0001f)
+            return;
+        if (Mathf.Abs(ThrottleValue) > 0f)
+		{
+            float velocity = Vector3.Dot(rb.velocity, -1 * Envelope.transform.up.normalized);
+            float AppliedThrottle = maxThrust * ThrottleValue;
+            AppliedThrust = (AppliedThrottle - velocityScaleConst * velocity);
+			AtmosphereManager.pollution += 1f * ThrottleValue;
+            FuelInUse.Fuel -= Mathf.Abs(ThrottleValue * 0.01f * Time.fixedDeltaTime);
+            TotalThrust = -1 * Envelope.transform.up * AppliedThrust;
         }
-
-        FuelInUse.Fuel -= Mathf.Abs(ThrottleValue * 0.01f * Time.fixedDeltaTime);
-
-        TotalThrust = -1*Envelope.transform.up * AppliedThrust;
-        Debug.DrawLine(transform.position, transform.position + (-1*  Envelope.transform.up * 100f));
+        Debug.Log(ThrottleValue);
+        Debug.Log(TotalThrust);
+        Debug.DrawLine(transform.position, transform.position + (-1 * Envelope.transform.up * 100f), Color.green);
         rb.AddForce(TotalThrust);
     }
 }
