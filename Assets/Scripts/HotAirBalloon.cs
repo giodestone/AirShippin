@@ -87,8 +87,8 @@ public class HotAirBalloon : MonoBehaviour
 	void BurnerOn()
 	{
 		/*float increment = GetTemperatureRate(773.15f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 1f, 60f, AtmosphereManager.ThermalConductivity, AtmosphereManager.HeatCapacityAir);*/
-		float increment = GetConvectionRate(800f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 1f, AtmosphereManager.ThermalConvectivity, AtmosphereManager.HeatCapacityAir);
-		BalloonTemperature += increment+0.5f;
+		float increment = GetConvectionRate(800f, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 3.141f, AtmosphereManager.ThermalConvectivity, AtmosphereManager.HeatCapacityAir);
+		BalloonTemperature += increment;
 	}
 
 	void PassiveLoss()
@@ -103,7 +103,7 @@ public class HotAirBalloon : MonoBehaviour
 
 	void ReleaseOn()
 	{
-		BalloonTemperature += GetConvectionRate(AmbientTemperature, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 8f, AtmosphereManager.ThermalConvectivity, AtmosphereManager.HeatCapacityAir);
+		BalloonTemperature += GetConvectionRate(AmbientTemperature, BalloonTemperature, GetBalloonDensity(), Time.fixedDeltaTime, 200f, AtmosphereManager.ThermalConvectivity, AtmosphereManager.HeatCapacityAir);
 	}
 
 	static float GetConvectionRate(float T1, float T2, float density, float dt, float Area, float ThermalConvectivity, float HeatCapacity)
