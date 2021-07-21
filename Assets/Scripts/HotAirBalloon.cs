@@ -45,7 +45,7 @@ public class HotAirBalloon : MonoBehaviour
 		height = 1f;
 		BalloonVolume = 26673f;
 		stability = 0.3f;
-		speed = 1.0f;
+		speed = 0.1f;
 		FuelInUse = GameObject.FindObjectOfType<AirshipFuelCanisterItemHolder>();
 }
 
@@ -67,6 +67,7 @@ public class HotAirBalloon : MonoBehaviour
 		Vector3 torqueVector = Vector3.Cross(predictedUp, Vector3.up);
 		torqueVector.y = 0f;
 		rb.AddTorque(torqueVector * speed * speed, ForceMode.VelocityChange);
+		Debug.Log(torqueVector * speed * speed);
 		rb.AddForce(force);
 
 		if (isBurnerOn)
