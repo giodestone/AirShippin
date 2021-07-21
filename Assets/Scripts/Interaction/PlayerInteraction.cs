@@ -186,10 +186,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 itemHolder.PutItemIn(currentInteractable.gameObject);
             }
-            else
-            {
-                PutItemDown();
-            }
         }
         else if (Physics.Raycast(itemAttachmentPoint.position, -itemAttachmentPoint.transform.up, out var hitInfoFeet, 5f, LayerMask.GetMask("ItemPutDownSurface")))
         {
@@ -206,18 +202,13 @@ public class PlayerInteraction : MonoBehaviour
         // Otherwise let physics take the wheel.
         else
         {
-            PutItemDown();
+            currentInteractable.transform.parent = null;
+            currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = false;
         }
 
         currentInteractable = null;
         SwitchStateTo(PlayerInteractionState.Free);
-    }
-
-    void PutItemDown()
-    {
-        currentInteractable.transform.parent = null;
-        currentInteractable.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-        currentInteractable.transform.gameObject.GetComponent<Collider>().isTrigger = false;
     }
 
     void ThrowOrPutDownItem()
