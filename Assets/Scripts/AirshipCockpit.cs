@@ -43,6 +43,9 @@ public class AirshipCockpit : MonoBehaviour
         hotAirBalloon = FindObjectOfType<HotAirBalloon>();
         jobManager = FindObjectOfType<JobManager>();
         verticalSpeedAverage = gameObject.AddComponent<AverageValues>();
+
+        UpdateSteeringModel();
+        UpdateThrottleModel();
     }
 
     void Update()
@@ -93,7 +96,7 @@ public class AirshipCockpit : MonoBehaviour
     public void UpdateThrottle(float incrementValue)
     {
         throttle += incrementValue;
-        throttle = Mathf.Clamp(throttle, -0.2f, 1f);
+        throttle = Mathf.Clamp(throttle, 0f, 1f);
 
         propeller.ThrottleValue = throttle;
 
@@ -102,7 +105,7 @@ public class AirshipCockpit : MonoBehaviour
 
     void UpdateThrottleModel()
     {
-        throttleAnimator.Play("Throttle", 0, throttle);
+        throttleAnimator.Play("Throttle", 0, Mathf.Clamp(throttle, 0.0001f, 0.9999f));
 
         // // -15 x max    -160x min
         // var minRotation = Quaternion.Euler(-15f, 0f, 0f);
@@ -113,7 +116,7 @@ public class AirshipCockpit : MonoBehaviour
 
     void UpdateSteeringModel()
     {
-        steeringAnimator.Play("Steering", 0, steering);
+        steeringAnimator.Play("Steering", 0, Mathf.Clamp((steering / 2f) + 0.5f, 0.0001f, 0.9999f));
         // //-180x left, 0 right
         // var minRotation = Quaternion.Euler(0, 0f, 0f);
         // var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
@@ -154,7 +157,7 @@ public class AirshipCockpit : MonoBehaviour
 
         destHDGSpeedText.text = dirToTgt;
 
-        fuelText.text = "FUEL: " + (FuelInUse.Fuel * 100f).ToString("0.0%");
+        fuelText.text = "FUEL: " + (FuelInUse.Fuel * 100f).ToString("0.0") + "%";
 
         previousAltiude = envelope.transform.position.y;
     }
