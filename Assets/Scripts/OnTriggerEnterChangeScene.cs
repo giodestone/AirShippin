@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeSceneOnClick : MonoBehaviour
+public class OnTriggerEnterChangeScene : MonoBehaviour
 {
     [SerializeField] string nameOfScene;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    public void LoadScene()
+    void OnTriggerEnter()
     {
         SceneManager.LoadScene(nameOfScene);
     }
