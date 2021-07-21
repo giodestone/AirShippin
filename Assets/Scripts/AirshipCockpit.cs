@@ -43,6 +43,13 @@ public class AirshipCockpit : MonoBehaviour
         hotAirBalloon = FindObjectOfType<HotAirBalloon>();
         jobManager = FindObjectOfType<JobManager>();
         verticalSpeedAverage = gameObject.AddComponent<AverageValues>();
+
+        UpdateSteeringModel();
+        UpdateThrottleModel();
+    }
+
+    void Update()
+    {
     }
 
     public void NotifyButtonPressStart(AirshipButtonAction airshipButtonAction)
@@ -76,36 +83,29 @@ public class AirshipCockpit : MonoBehaviour
         }
     }
 
-    public void UpdateSteering(float newValue)
+    public void UpdateSteering(float incrementValue)
     {
-        // TODO
-        // Debug.Log("Steering: " + newValue);
-        steering += newValue;
+        steering += incrementValue;
         steering = Mathf.Clamp(steering, -1f, 1f);
+
         rudder.steeringValue = steering;
-
+        
         UpdateSteeringModel();
-
     }
 
-    public void UpdateThrottle(float newValue)
+    public void UpdateThrottle(float incrementValue)
     {
-        // TODO
-        // Debug.Log("Throttle: " + newValue);
-        float fuel = FuelInUse.Fuel;
-        if (fuel > 0f)
-        {
-            throttle += newValue * Mathf.Log10(fuel * 10f + 1f);
-            throttle = Mathf.Clamp(throttle, -0.15f, 1f);
-            propeller.ThrottleValue = throttle;
-        }
+        throttle += incrementValue;
+        throttle = Mathf.Clamp(throttle, 0f, 1f);
+
+        propeller.ThrottleValue = throttle;
 
         UpdateThrottleModel();
     }
 
     void UpdateThrottleModel()
     {
-        throttleAnimator.Play("Throttle", 0, throttle);
+        throttleAnimator.Play("Throttle", 0, Mathf.Clamp(throttle, 0.0001f, 0.9999f));
 
         // // -15 x max    -160x min
         // var minRotation = Quaternion.Euler(-15f, 0f, 0f);
@@ -116,7 +116,7 @@ public class AirshipCockpit : MonoBehaviour
 
     void UpdateSteeringModel()
     {
-        steeringAnimator.Play("Steering", 0, steering);
+        steeringAnimator.Play("Steering", 0, Mathf.Clamp((steering / 2f) + 0.5f, 0.0001f, 0.9999f));
         // //-180x left, 0 right
         // var minRotation = Quaternion.Euler(0, 0f, 0f);
         // var maxRotation = Quaternion.Euler(-160f, 0f, 0f);
@@ -128,6 +128,8 @@ public class AirshipCockpit : MonoBehaviour
     {
         UpdateText();
     }
+
+
 
     float previousAltiude;
 
@@ -155,7 +157,7 @@ public class AirshipCockpit : MonoBehaviour
 
         destHDGSpeedText.text = dirToTgt;
 
-        fuelText.text = "FUEL: " + (FuelInUse.Fuel * 100f).ToString("0.0");
+        fuelText.text = "FUEL: " + (FuelInUse.Fuel * 100f).ToString("0.0") + "%";
 
         previousAltiude = envelope.transform.position.y;
     }

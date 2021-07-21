@@ -10,20 +10,22 @@ public class WindVisualizer : MonoBehaviour
     GameObject player;
     const string playerTag = "Player";
 
+    const int maxNumTrails = 100;
+    const float trailSpawningRadius = 200f;
+    const float minTimeBeforeSpawingTrail = 0.25f;
+    const float maxTimeBeforeSpawningTrail = 1.5f;
 
-    const int maxNumTrails = 40;
-    const float trailSpawningRadius = 50f;
-    const float minTimeBeforeSpawingTrail = 0.5f;
-    const float maxTimeBeforeSpawningTrail = 2.5f;
-
+    int numTrailsInRadius;
     float nextTimeToSpawnTrail = 0f;
     float timeSpawnedTrail = 0f;
 
     List<GameObject> trails;
+    Dictionary<float, GameObject> distanceToTrail;
 
     void Start()
     {
         trails = new List<GameObject>(maxNumTrails);
+        distanceToTrail = new Dictionary<float, GameObject>(maxNumTrails);
         windManager = GameObject.FindObjectOfType<WindManager>();
         player = GameObject.FindWithTag(playerTag);
     }
@@ -32,6 +34,7 @@ public class WindVisualizer : MonoBehaviour
     {
         if (Time.time >= nextTimeToSpawnTrail)
         {
+            UpdateTrailsInRadius();
             CalculateNextTimeToSpawnTrail();
             SpawnTrail();
         }
@@ -44,7 +47,7 @@ public class WindVisualizer : MonoBehaviour
 
     void SpawnTrail()
     {
-        if (trails.Count > maxNumTrails)
+        if (numTrailsInRadius > maxNumTrails)
             return;
         
         var newTrail = GameObject.Instantiate(trailPrefab, PickPosition(), Quaternion.identity);
@@ -66,5 +69,28 @@ public class WindVisualizer : MonoBehaviour
     public void TrailDestroyed(GameObject trail)
     {
         trails.Remove(trail);
+    }
+
+    /// <summary>
+    /// Update the variable <see cref="numTrailsInRadius"/>.
+    /// </summary>
+    /// <param name="extraDistanceToleranceMultiplier">Multiplier of <see cref="trailSpawningRadius"/> for which trails will get excluded from being considered in radius, but won't be destroyed.</param>
+    void UpdateTrailsInRadius(float extraDistanceToleranceMultiplier=2f)
+    {
+        distanceToTrail.Clear();
+
+        // Thinking about it some max processing time would be in order.
+
+        numTrailsInRadius = trails.Count;
+
+        foreach (var trail in trails)
+        {
+            var sqrDistance = (trail.transform.position - player.transform.position).sqrMagnitude;
+            if (sqrDistance > Mathf.Pow(trailSpawningRadius, 2f))
+                numTrailsInRadius--;
+        
+            if (sqrDistance > Mathf.Pow(trailSpawningRadius * extraDistanceToleranceMultiplier, 2f))
+                Destroy(trail);
+        }
     }
 }

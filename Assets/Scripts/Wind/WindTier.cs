@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class WindTier{
     public const float MinWindStrength = 0f;
-    public const float MaxWindStrength = 30f;
+    public const float MaxWindStrength = 10f;
     public const float MinWindDirectionTransitionSeconds = 60f;
     public const float MaxWindDirectionTransitionSeconds = 60f * 3f;
 
