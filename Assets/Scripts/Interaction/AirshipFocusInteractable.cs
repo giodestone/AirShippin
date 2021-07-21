@@ -8,8 +8,8 @@ using UnityEngine;
 public class AirshipFocusInteractable : FocusInteractable
 {
     const float clickReach = 5f;
-    const float throttleIncreaseSpeedModifier = 0.1f;
-    const float steeringSpeedModifier = 0.1f;
+    const float throttleIncreaseSpeedModifier = 1f;
+    const float steeringSpeedModifier = 1f;
 
     bool isFocused = false;
 
@@ -82,11 +82,11 @@ public class AirshipFocusInteractable : FocusInteractable
 
     void UpdateThrottle()
     {
-        airshipCockpit.UpdateThrottle(Input.GetAxis("Airship Throttle") * throttleIncreaseSpeedModifier);
+        airshipCockpit.UpdateThrottle(Input.GetAxis("Airship Throttle") * throttleIncreaseSpeedModifier * Time.deltaTime);
     }
 
     void UpdateSteering()
     {
-        airshipCockpit.UpdateSteering(Input.GetAxis("Horizontal") * steeringSpeedModifier);
+        airshipCockpit.UpdateSteering(Input.GetAxis("Horizontal") * steeringSpeedModifier * Time.deltaTime);
     }
 }
