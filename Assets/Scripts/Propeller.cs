@@ -40,8 +40,6 @@ public class Propeller : MonoBehaviour
             FuelInUse.Fuel -= Mathf.Abs(ThrottleValue * 0.01f * Time.fixedDeltaTime);
             TotalThrust = -1 * Envelope.transform.up * AppliedThrust;
         }
-        Debug.Log(ThrottleValue);
-        Debug.Log(TotalThrust);
         Debug.DrawLine(transform.position, transform.position + (-1 * Envelope.transform.up * 100f), Color.green);
         rb.AddForce(TotalThrust);
     }
