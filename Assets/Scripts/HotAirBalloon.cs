@@ -74,7 +74,7 @@ public class HotAirBalloon : MonoBehaviour
 			if (FuelInUse.Fuel > 0f)
 			{
 				BurnerOn();
-				FuelInUse.Fuel -= 0.01f * Time.fixedDeltaTime;
+				FuelInUse.Fuel -= 0.008f * Time.fixedDeltaTime;
 				AtmosphereManager.pollution += 1f;
 			}
 		}
