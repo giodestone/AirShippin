@@ -141,19 +141,37 @@ public class AirshipCockpit : MonoBehaviour
         altText.text = "ALT: " + envelope.position.y.ToString("0.00 M");
         verticalSpeedText.text = "VS: " + verticalSpeedAverage.MovingAverage.ToString("0.00 M/S");
         var dir = Vector3.Dot(Vector3.forward, -1 * envelope.transform.up);
+        var check = Mathf.Acos(Vector3.Dot(Vector3.right, -1* envelope.transform.up));
+        var HDG = Mathf.Acos(dir);
+        Debug.Log(check);
         //Debug.DrawLine(envelope.transform.position, envelope.transform.position + (dir * 1000f));
         Debug.DrawLine(envelope.transform.position, envelope.transform.position + (envelope.transform.up * 1000f), Color.black);
         Debug.DrawLine(envelope.transform.position, envelope.transform.position + (Vector3.forward * 10000f), Color.green);
-        curHDGSpeedText.text = "HDG: " + ((Mathf.Acos(dir) * Mathf.Rad2Deg)).ToString("0");
-        Debug.Log(Mathf.Acos(dir));
-
+        curHDGSpeedText.text = "HDG: ";
+        if (check < Mathf.PI / 2f)
+        {
+            curHDGSpeedText.text += ((Mathf.Acos(dir) * Mathf.Rad2Deg)).ToString("0");
+        }
+        else if (check > Mathf.PI / 2f)
+        {
+            curHDGSpeedText.text += (360 - Mathf.Acos(dir) * Mathf.Rad2Deg).ToString("0");
+        }
         var dirToTgt = "HDG->TGT: ";
         if (jobManager.Destination != null)
         {
             var envToDest = jobManager.Destination.transform.position - envelope.transform.position;
             var dirtotgtangle = Vector3.Dot(Vector3.forward, envToDest.normalized);
-            //Debug.DrawLine(envelope.position, envelope.position + (envToDest*1000f), Color.red);
-            dirToTgt += (Mathf.Acos(dirtotgtangle) * Mathf.Rad2Deg).ToString("0");
+            var check2 = Mathf.Acos(Vector3.Dot(Vector3.right, envToDest.normalized));
+            if (check2 < Mathf.PI / 2f)
+            {
+                //Debug.DrawLine(envelope.position, envelope.position + (envToDest*1000f), Color.red);
+                dirToTgt += (Mathf.Acos(dirtotgtangle) * Mathf.Rad2Deg).ToString("0");
+            }
+            else if (check2 > Mathf.PI / 2)
+            {
+                //Debug.DrawLine(envelope.position, envelope.position + (envToDest*1000f), Color.red);
+                dirToTgt += (360 - Mathf.Acos(dirtotgtangle) * Mathf.Rad2Deg).ToString("0");
+            }
         }
         else
         {

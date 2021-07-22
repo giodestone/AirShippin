@@ -69,14 +69,11 @@ public class HotAirBalloon : MonoBehaviour
 		rb.AddTorque(torqueVector * speed * speed, ForceMode.VelocityChange);
 		rb.AddForce(force);
 
-		if (isBurnerOn)
+		if (isBurnerOn && FuelInUse.Fuel > 0f)
 		{
-			if (FuelInUse.Fuel > 0f)
-			{
-				BurnerOn();
-				FuelInUse.Fuel -= 0.01f * Time.fixedDeltaTime;
-				AtmosphereManager.pollution += 1f;
-			}
+			BurnerOn();
+			FuelInUse.Fuel -= 0.008f * Time.fixedDeltaTime;
+			AtmosphereManager.pollution += 1f;
 		}
 		if (isReleaseOn)
 		{

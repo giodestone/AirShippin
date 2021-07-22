@@ -21,7 +21,7 @@ public static class AtmosphereManager
 
 	public static float GetAmbientTemperature(float height)
     {
-		return RefTemperature - 0.0065f * (height - RefHeight) + (pollution * 0.005f);
+		return RefTemperature - 0.0065f * (height - RefHeight) + (pollution * 0.001f);
     }
 
     public static float GetAmbientPressure(float height, float AmbientTemperature)
