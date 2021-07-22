@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 public class OnTriggerEnterChangeScene : MonoBehaviour
 {
     [SerializeField] string nameOfScene;
+    [SerializeField] Collider playerCollider;
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(nameOfScene);
+        if (other == playerCollider)
+            SceneManager.LoadScene(nameOfScene);
     }
 }
