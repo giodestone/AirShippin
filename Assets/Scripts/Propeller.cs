@@ -6,7 +6,7 @@ public class Propeller : MonoBehaviour
 {
     public Rigidbody rb;
 
-    private float maxThrust = 6000f;
+    private float maxThrust = 20000f;
     private float velocityScaleConst = 100f;
     private float AppliedThrust;
     AirshipFuelCanisterItemHolder FuelInUse;
@@ -37,7 +37,7 @@ public class Propeller : MonoBehaviour
             float AppliedThrottle = maxThrust * ThrottleValue;
             AppliedThrust = (AppliedThrottle - velocityScaleConst * velocity);
 			AtmosphereManager.pollution += 1f * ThrottleValue;
-            FuelInUse.Fuel -= Mathf.Abs(ThrottleValue * 0.01f * Time.fixedDeltaTime);
+            FuelInUse.Fuel -= Mathf.Abs(ThrottleValue * 0.003f * Time.fixedDeltaTime);
             TotalThrust = -1 * Envelope.transform.up * AppliedThrust;
         }
         Debug.DrawLine(transform.position, transform.position + (-1 * Envelope.transform.up * 100f), Color.green);
