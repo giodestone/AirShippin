@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.28462005, g: 0.37120837, b: 0.4988044, a: 1}
+  m_IndirectSpecularColor: {r: 0.28462148, g: 0.37121013, b: 0.49880773, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -184,6 +184,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
+--- !u!136 &39159890 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 7208237128506299272, guid: e89b79bc2cc20c743840433c508603d8, type: 3}
+  m_PrefabInstance: {fileID: 39159889}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &89076296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,6 +2733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfScene: GameOver
+  playerCollider: {fileID: 39159890}
 --- !u!4 &1364838274
 Transform:
   m_ObjectHideFlags: 0
