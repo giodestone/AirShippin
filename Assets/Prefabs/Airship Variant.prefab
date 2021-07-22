@@ -1386,25 +1386,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!95 &1651055333
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121311220566939572}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4a07ee2946339b74f93aa937e54dd4e9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &447655934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2728,7 +2709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10702.3
+      value: -1029.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2736,7 +2717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10236.8
+      value: 1019
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9cd80caa1e37e1242a476ddece9a6577, type: 3}
       propertyPath: m_LocalRotation.w

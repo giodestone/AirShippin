@@ -6,7 +6,7 @@ public class Propeller : MonoBehaviour
 {
     public Rigidbody rb;
 
-    private float maxThrust = 20000f;
+    private float maxThrust = 20000f * 2.5f;
     private float velocityScaleConst = 100f;
     private float AppliedThrust;
     AirshipFuelCanisterItemHolder FuelInUse;
@@ -40,7 +40,7 @@ public class Propeller : MonoBehaviour
             FuelInUse.Fuel -= Mathf.Abs(ThrottleValue * 0.003f * Time.fixedDeltaTime);
             TotalThrust = -1 * Envelope.transform.up * AppliedThrust;
         }
-        Debug.DrawLine(transform.position, transform.position + (-1 * Envelope.transform.up * 100f), Color.green);
+        //Debug.DrawLine(transform.position, transform.position + (-1 * Envelope.transform.up * 100f), Color.green);
         rb.AddForce(TotalThrust);
     }
 }

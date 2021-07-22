@@ -143,10 +143,10 @@ public class AirshipCockpit : MonoBehaviour
         var dir = Vector3.Dot(Vector3.forward, -1 * envelope.transform.up);
         var check = Mathf.Acos(Vector3.Dot(Vector3.right, -1* envelope.transform.up));
         var HDG = Mathf.Acos(dir);
-        Debug.Log(check);
+        //Debug.Log(check);
         //Debug.DrawLine(envelope.transform.position, envelope.transform.position + (dir * 1000f));
-        Debug.DrawLine(envelope.transform.position, envelope.transform.position + (envelope.transform.up * 1000f), Color.black);
-        Debug.DrawLine(envelope.transform.position, envelope.transform.position + (Vector3.forward * 10000f), Color.green);
+        //Debug.DrawLine(envelope.transform.position, envelope.transform.position + (envelope.transform.up * 1000f), Color.black);
+        //Debug.DrawLine(envelope.transform.position, envelope.transform.position + (Vector3.forward * 10000f), Color.green);
         curHDGSpeedText.text = "HDG: ";
         if (check < Mathf.PI / 2f)
         {
