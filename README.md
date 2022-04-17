@@ -19,7 +19,7 @@ The game was heavily inspired by another game jam game from 2013, [Aurora Wager]
 
 **A Guide is contained within the game.** But you can read the beautiful PDF's here instead - [Page 1](https://github.com/giodestone/AirShippin/raw/main/Blimp%20Transport%20Bureau.pdf), [Page 2](https://github.com/giodestone/AirShippin/raw/main/Blimp%20Transport%20Bureau%20Meteo.pdf), [Page 3](https://github.com/giodestone/AirShippin/raw/main/Blimp%20Transport%20Bureau%20Ops.pdf), [Page 4](https://github.com/giodestone/AirShippin/raw/main/scanned%20ops.pdf), [Page 5](https://github.com/giodestone/AirShippin/raw/main/scanned%20ops%20pg%201.pdf).
 
-If you really do not want to read them and be taken into the world-building, they are listed below.
+If you really do not want to read them and be taken aback by the world-building, they are listed below.
 
 <details>
   <summary>Spoil the controls.</summary>
